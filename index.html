@@ -358,7 +358,8 @@
 <p>输入代码，能看到一张图片，表示配置成功。</p>
 <p><img src="https://s2.ax1x.com/2019/01/06/FHuxIS.png" alt="配置成功"></p>
 <h3 id="配置失败的一个小问题"><a href="#配置失败的一个小问题" class="headerlink" title="配置失败的一个小问题"></a>配置失败的一个小问题</h3><p>问题： <strong>无法打开包括文件:“SDKDDKVer.h”: No such file or directory</strong></p>
-<p>解决方法：在 <strong>VC++</strong> 目录下的 <strong>包含目录</strong> 和 <strong>库目录</strong> 里，分别添加 <figure class="highlight plain"><figcaption><span>``` 和 ``` $(LibraryPath) ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 图片叠加时的一个小问题</span><br><span class="line">问题： ``` 0xC0000005:写入位置 0x0000020AE9446212时发生访问冲突。</span><br></pre></td></tr></table></figure></p>
+<p>解决方法：在 <strong>VC++</strong> 目录下的 <strong>包含目录</strong> 和 <strong>库目录</strong> 里，分别添加 <strong>$(IncludePath)</strong> 和 <strong>$(LibraryPath)</strong></p>
+<h3 id="图片叠加时的一个小问题"><a href="#图片叠加时的一个小问题" class="headerlink" title="图片叠加时的一个小问题"></a>图片叠加时的一个小问题</h3><p>问题： <strong>0xC0000005:写入位置 0x0000020AE9446212时发生访问冲突。</strong></p>
 <p>原因：图片叠加，将小照片放入背景时，小照片的较大，导致叠放失败。</p>
 <p>解决：换用一张较小的照片放入背景或将背景图片的大小设置大一点。</p>
 
