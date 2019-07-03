@@ -249,6 +249,182 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xinyang1328.github.io/2019/06/10/git/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yangxin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/yangxin.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yangxinのblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/10/git/" itemprop="url">git命令</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-10T11:02:26+08:00">
+                2019-06-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/其他/" itemprop="url" rel="index">
+                    <span itemprop="name">其他</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h2><h2 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h2><figure class="highlight plain"><figcaption><span>config --global user.name "Your Name" ``` </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">``` git config --global user.email &quot;email@example.com&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h2><p><code>git remote add origin(远程仓库名) url</code>  </p>
+<p>这里的url是仓库的地址（建议用ssh</p>
+<h2 id="克隆"><a href="#克隆" class="headerlink" title="克隆"></a>克隆</h2><p><code>git clone url</code>   </p>
+<p>这个可以将仓库的代码拉下来，并且将本地仓库和远程仓库连接起来。</p>
+<h2 id="暂存"><a href="#暂存" class="headerlink" title="暂存"></a>暂存</h2><p><code>git stash</code>：暂存更改  </p>
+<p><code>git stash list</code>: 查看暂存列表  </p>
+<p><code>git stash apply</code>: 恢复暂存内容  </p>
+<p><code>git stash drop</code>: 删除暂存内容  </p>
+<p><code>git stash pop</code>: 恢复暂存内容并删除    </p>
+<h2 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h2><p><code>git commit</code>：将暂存区的内容提交到当前分支</p>
+<h2 id="推送"><a href="#推送" class="headerlink" title="推送"></a>推送</h2><p><code>git push -u origin master</code>: 第一次推送，<strong>-u</strong>可以将本地的master分支和远程的master分支关联起来   </p>
+<p><code>git push</code>: 将当前分支推送到远程    </p>
+<p><code>git push 仓库名 分支名</code>: 将该分支推送到远程仓库的分支</p>
+<h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><p><code>git branch</code>：查看所有分支，当前分支名前有 * </p>
+<p><code>git branch Name</code>：创建   </p>
+<p><code>git branch -d Name</code>: 删除该分支(-D是强行删除)   </p>
+<p><code>git checkout Name</code>：切换分支  </p>
+<p><code>git checkout -b Name</code>: 创建并切换到分支</p>
+<p><code>git merge Name</code>: 将该分支和当前分支合并   </p>
+<p><code>git branch --set-upstream 分支名 仓库名/分支名</code>：建立本地分支和远程分支的关联   </p>
+<p><code>git pull</code>: 抓取分支   </p>
+<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><p><code>git tag Name</code>: 新标签</p>
+<p><code>git tag -d Name</code>: 删除本地标签</p>
+<p><code>git push 仓库名 :refs/tags/Name</code>: 删除远程标签</p>
+<p><code>git show Name</code>: 查看标签信息</p>
+<p><code>git push 仓库名 Name</code>: 将此标签推送到远程</p>
+<p><code>git push 仓库名 -tags</code>: 将未推送的标签推到远程</p>
+<p><code>git checkout -- fileName</code>: 撤销此文件在工作区的修改</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p><code>git log</code>: 显示提交日志</p>
+<p><code>git reflog</code>: 显示命令历史</p>
+<p><code>git reset --hard versonID</code>: 历史版本切换</p>
+<p><code>git status</code>: 查看当前状态</p>
+<p><code>git log --graph</code>: 查看分支合并图</p>
+<p><code>git remote [-v]</code>: 查看远程库的信息</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xinyang1328.github.io/2019/01/06/vs+opencv/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -303,8 +479,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/openCV/" itemprop="url" rel="index">
-                    <span itemprop="name">openCV</span>
+                  <a href="/categories/其他/" itemprop="url" rel="index">
+                    <span itemprop="name">其他</span>
                   </a>
                 </span>
 
@@ -464,8 +640,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/PHP/" itemprop="url" rel="index">
-                    <span itemprop="name">PHP</span>
+                  <a href="/categories/其他/" itemprop="url" rel="index">
+                    <span itemprop="name">其他</span>
                   </a>
                 </span>
 
@@ -765,7 +941,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -776,7 +952,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
