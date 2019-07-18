@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="java学习第一天基本要求:1、大小写敏感  2、文件入口类是和文件名一致的，如果不一致就会报错。  就像这样   3、主方法入口：static void main(String []args) ```开始执行。 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第一天">
+<meta property="og:url" content="http://xinyang1328.github.io/2019/07/18/java第一天/index.html">
+<meta property="og:site_name" content="yangxinのblog">
+<meta property="og:description" content="java学习第一天基本要求:1、大小写敏感  2、文件入口类是和文件名一致的，如果不一致就会报错。  就像这样   3、主方法入口：static void main(String []args) ```开始执行。 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://s2.ax1x.com/2019/07/18/ZOLNrD.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/07/18/Zj3NWQ.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/07/18/ZXn0oj.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/07/18/ZXMofs.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/07/18/ZXGEYF.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/07/18/Zj37FO.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/07/18/ZXlsMt.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/07/18/ZXJShD.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/07/18/Zj3z0P.jpg">
+<meta property="og:image" content="https://s2.ax1x.com/2019/07/18/ZXY4WF.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/07/18/Zj3PMR.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/07/18/ZjY7DA.png">
+<meta property="og:updated_time" content="2019-07-18T15:27:23.349Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第一天">
+<meta name="twitter:description" content="java学习第一天基本要求:1、大小写敏感  2、文件入口类是和文件名一致的，如果不一致就会报错。  就像这样   3、主方法入口：static void main(String []args) ```开始执行。 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/07/18/ZOLNrD.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://xinyang1328.github.io/2019/07/18/java第一天/"/>
+
+
+
+
+
+  <title>第一天 | yangxinのblog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">yangxinのblog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xinyang1328.github.io/2019/07/18/java第一天/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yangxin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/yangxin.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yangxinのblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">第一天</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-18T23:25:03+08:00">
+                2019-07-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java学习/" itemprop="url" rel="index">
+                    <span itemprop="name">Java学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="java学习第一天"><a href="#java学习第一天" class="headerlink" title="java学习第一天"></a>java学习第一天</h2><h3 id="基本要求"><a href="#基本要求" class="headerlink" title="基本要求:"></a>基本要求:</h3><p>1、大小写敏感 </p>
+<p>2、文件入口类是和文件名一致的，如果不一致就会报错。 </p>
+<p>就像这样 </p>
+<p><img src="https://s2.ax1x.com/2019/07/18/ZOLNrD.png" alt="ZOLNrD.png"><br><img src="https://s2.ax1x.com/2019/07/18/Zj3NWQ.png" alt="Zj3NWQ.png"></p>
+<p>3、主方法入口：<figure class="highlight plain"><figcaption><span>static void main(String []args) ```开始执行。 </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">4、和c/c++一样，必打分号。 </span><br><span class="line"></span><br><span class="line">5、``` System.out.println(&quot;first day&quot;); ```里面必须打成双引号，否则报错....(也不晓得是为啥子要求那么多... </span><br><span class="line"></span><br><span class="line">![ZXZtQU.png](https://s2.ax1x.com/2019/07/18/ZXZtQU.png)</span><br><span class="line"></span><br><span class="line">6、一个文件里面只能有一个public的类！！！ </span><br><span class="line"></span><br><span class="line">### 修饰符</span><br><span class="line">#### 访问控制修饰符</span><br><span class="line">``` default ```:默认的，在同一个文件内除了子类都阔以访问嘞 </span><br><span class="line"></span><br><span class="line">``` public ```:公用的，权利最留批的一个，阔以跨文件访问</span><br><span class="line"></span><br><span class="line">``` protected ```:受保护的，在同一个文件都阔以滴，子类也可以访问。</span><br><span class="line"></span><br><span class="line">``` private ```:私有滴，只能自身访问，其他的包括子类都是访问不到滴</span><br><span class="line"></span><br><span class="line">所以，被访问范围为：</span><br><span class="line"></span><br><span class="line">public &gt; protected &gt; default &gt; private</span><br><span class="line"></span><br><span class="line">#### 其他修饰符：</span><br><span class="line">``` static ```：声明独立于对象的静态变量或静态方法。</span><br><span class="line"></span><br><span class="line">``` final ```：定义一个变量的时候，和js里面的const差不多，都是使变量的值不可改变；</span><br><span class="line">定义一个函数的时候，没有类可以继承final类的任何特性</span><br><span class="line"></span><br><span class="line">``` abstract ```：我个人感觉有点类似c++里面的虚函数，在父类里面定义一个函数，然后再子类里面进行定义这个函数的作用，不同的子类的函数互不影响。</span><br><span class="line"></span><br><span class="line">``` synchronized ```：被声明的方法只能被一个线程访问。</span><br><span class="line"></span><br><span class="line">``` transient ```：可以让变量反序列化。(至于序列化是个啥...我也有点懵逼，就算是辣个留批的后台人，也无法解决我的疑惑</span><br><span class="line"></span><br><span class="line">![ZjYt7q.png](https://s2.ax1x.com/2019/07/18/ZjYt7q.png)</span><br><span class="line"></span><br><span class="line">``` volatile ```：修饰的成员变量在每次被线程访问时，都强制从共享内存中重新读取该成员变量的值。而且，当成员变量发生变化时，会强制线程将变化值回写到共享内存。这样在任何时刻，两个不同的线程总是看到某个成员变量的同一个值。</span><br><span class="line"></span><br><span class="line">### 类与对象</span><br><span class="line"></span><br><span class="line">#### 记错误用法</span><br><span class="line">``` java</span><br><span class="line">    public class first&#123;</span><br><span class="line">        void day()&#123;</span><br><span class="line">            System.out.println(&apos;first day&apos;);</span><br><span class="line">        &#125;</span><br><span class="line">        public static void main(String []args)&#123;</span><br><span class="line">            day();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>报错：</p>
+<p><img src="https://s2.ax1x.com/2019/07/18/ZXn0oj.png" alt="ZXn0oj.png"></p>
+<p>原因：main是静态的方法，因为前面有<strong>static</strong>，静态的只能调用静态的方法。</p>
+<h4 id="正确的用法"><a href="#正确的用法" class="headerlink" title="正确的用法"></a>正确的用法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">first</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">day</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"first day"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">lalala</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"啦啦啦"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String []args)</span></span>&#123;</span><br><span class="line">        lalala();</span><br><span class="line">        first aaa = <span class="keyword">new</span> first();<span class="comment">//这个就转化为动态的了，就可以无所畏惧了，随意调用静态和非静态的方法，啦啦啦~~</span></span><br><span class="line">        aaa.day();</span><br><span class="line">        aaa.day()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<p><img src="https://s2.ax1x.com/2019/07/18/ZXMofs.png" alt="ZXMofs.png"></p>
+<p>当时我就郁闷了，明明有动态的就够了呀，为嘛还要有一个静态的嘞，多麻烦呀，是吧。</p>
+<p>但素，问了问一个留批的后台人，突然就觉得，静态的也蛮不错的嘛。</p>
+<p><img src="https://s2.ax1x.com/2019/07/18/ZXGEYF.png" alt="ZXGEYF.png"></p>
+<p><img src="https://s2.ax1x.com/2019/07/18/Zj37FO.png" alt="Zj37FO.png"></p>
+<p>原因如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">first</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">lalala</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"啦啦啦"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String []args)</span></span>&#123;</span><br><span class="line">        day.zhangshadiao();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">day</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">zhangshadiao</span><span class="params">()</span></span>&#123;</span><br><span class="line">        first.lalala();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行结果：</p>
+<p><img src="https://s2.ax1x.com/2019/07/18/ZXlsMt.png" alt="ZXlsMt.png"></p>
+<p>如果 lalala() 不是一个静态的函数，那么直接first.lalala()是肥报错滴，如果要调用非静态的函数嘞，就要先 new 一下，再调用。虽然只少了一个步骤，但素如果要用到多个类，就要 new 这个类那个类的，是有点累(搽汗…而且还浪费</p>
+<p><img src="https://s2.ax1x.com/2019/07/18/ZXJShD.png" alt="ZXJShD.png"></p>
+<p>所以，静态有静态的好处，动态有动态的不足，任取所需即可辽(说的不是肥话咩…</p>
+<p><img src="https://s2.ax1x.com/2019/07/18/Zj3z0P.jpg" alt="Zj3z0P.jpg"></p>
+<h4 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h4><p>构造函数木有个数限制滴，你可以有很多很多个，唯一的要求就是参数类型和参数个数完全一样，不然就报错。</p>
+<p>比如：</p>
+<p><img src="https://s2.ax1x.com/2019/07/18/ZXY4WF.png" alt="ZXY4WF.png"></p>
+<p>非错误用法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">first</span></span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String []args)</span></span>&#123;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        first()&#123;</span><br><span class="line">            System.out.println(<span class="string">"无参数的构造函数"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        first(String str)&#123;</span><br><span class="line">            System.out.println(<span class="string">"有参数的构造函数1，参数1为："</span>+str);</span><br><span class="line">        &#125;</span><br><span class="line">        first(String str1,String str2)&#123;</span><br><span class="line">            System.out.println(<span class="string">"有两个参数的构造函数，参数1为："</span>+str1+<span class="string">"参数2为："</span>+str2);</span><br><span class="line">        &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">数据类型</th>
+<th style="text-align:center">默认值</th>
+<th style="text-align:right">值</th>
+<th>其他</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">int</td>
+<td style="text-align:center">0</td>
+<td style="text-align:right">-2^31~2^31 - 1</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">float</td>
+<td style="text-align:center">0.0f</td>
+<td style="text-align:right">-3.4<em>10(-38)~3.4</em>10(38)</td>
+<td>有效位：7位</td>
+</tr>
+<tr>
+<td style="text-align:left">double</td>
+<td style="text-align:center">0.0d</td>
+<td style="text-align:right">-1.7<em>10(-308)～1.7</em>10(308)</td>
+<td>有效位：15位</td>
+</tr>
+<tr>
+<td style="text-align:left">short</td>
+<td style="text-align:center">0</td>
+<td style="text-align:right">-2^15~2^15</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">byte</td>
+<td style="text-align:center">0</td>
+<td style="text-align:right">-2^7~2^7</td>
+</tr>
+<tr>
+<td style="text-align:left">long</td>
+<td style="text-align:center">0L</td>
+<td style="text-align:right">-2^63~2^63-1</td>
+</tr>
+<tr>
+<td style="text-align:left">boolean</td>
+<td style="text-align:center">false</td>
+<td style="text-align:right">ture/false</td>
+</tr>
+<tr>
+<td style="text-align:left">char</td>
+<td style="text-align:center">‘A’</td>
+<td style="text-align:right">\u0000~\uffff</td>
+</tr>
+</tbody>
+</table>
+<p>自动类型转换：</p>
+<p>低 ————————————&gt; 高</p>
+<p>byte,short,char—&gt; int —&gt; long—&gt; float —&gt; double </p>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>学了如何运行用cmd运行java文件，了解了java的基本要求，看了变量类型、修饰符、对象等，类型和对象都基本上能很快的理解，但是修饰符里面有几个不太清楚的，需要再看看。</p>
+<p>第一天，完毕，啦啦啦·~~~</p>
+<p><img src="https://s2.ax1x.com/2019/07/18/Zj3PMR.png" alt="Zj3PMR.png"></p>
+<h4 id="第二天任务"><a href="#第二天任务" class="headerlink" title="第二天任务"></a>第二天任务</h4><p>1、scanner基础用法</p>
+<p>2、List以及Map的用法，遍历，取值，大数类和高精度类。</p>
+<p>3、大致了解for，switch，自增运算三目运算符</p>
+<p>4、Java常见库的使用方法（jdk1.8）</p>
+<p>以上，来着那个留批的后台人布置的任务，我就想吐槽一下那个第二个….我个人觉得是和c/c++的用法是差不多的（莫要让我打脸就行</p>
+<p><img src="https://s2.ax1x.com/2019/07/18/ZjY7DA.png" alt="ZjY7DA.png"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/06/二十四点/" rel="next" title="ccf二十四点">
+                <i class="fa fa-chevron-left"></i> ccf二十四点
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/yangxin.jpg"
+                alt="yangxin" />
+            
+              <p class="site-author-name" itemprop="name">yangxin</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/xinyang1328" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:xinyang1328@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#java学习第一天"><span class="nav-number">1.</span> <span class="nav-text">java学习第一天</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本要求"><span class="nav-number">1.1.</span> <span class="nav-text">基本要求:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#正确的用法"><span class="nav-number">1.1.1.</span> <span class="nav-text">正确的用法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构造函数"><span class="nav-number">1.1.2.</span> <span class="nav-text">构造函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据类型"><span class="nav-number">1.2.</span> <span class="nav-text">数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#小结"><span class="nav-number">1.2.1.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二天任务"><span class="nav-number">1.2.2.</span> <span class="nav-text">第二天任务</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yangxin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
