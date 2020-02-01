@@ -249,6 +249,155 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xinyang1328.github.io/2020/02/01/taro-select/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yangxin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/yangxin.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yangxinのblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/02/01/taro-select/" itemprop="url">Taro自制select标签</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-01T19:15:33+08:00">
+                2020-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/其他/" itemprop="url" rel="index">
+                    <span itemprop="name">其他</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>由于最近正在用Taro框架写个项目，在此过程中发现Taro不支持select(也有可能是我没有找到…啧)</p>
+<p>因此，我就自己封装了一个select组件,封装出来的莫得本色select的好用，但是对于我现在需求，是可以满足滴</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>话不多说，直接上代码</p>
+<p>主要内容</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Select</span> <span class="keyword">extends</span> <span class="title">Component</span></span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">        <span class="keyword">super</span>(props);</span><br><span class="line">        <span class="keyword">this</span>.state = (&#123;</span><br><span class="line">            element: props.element,<span class="comment">//展示元素，一个数组</span></span><br><span class="line">            width: props.width || <span class="number">230</span>,<span class="comment">//展示宽度</span></span><br><span class="line">            height: props.height || <span class="number">70</span>,<span class="comment">//展示高度</span></span><br><span class="line">            color: props.color || <span class="string">'black'</span>,<span class="comment">//展示字体颜色</span></span><br><span class="line">            background: props.background || <span class="string">'white'</span>,<span class="comment">//展示背景颜色</span></span><br><span class="line">            index: props.index || <span class="number">0</span>,<span class="comment">//展示的</span></span><br><span class="line">            option: <span class="literal">false</span>,<span class="comment">//下拉</span></span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">    showOptions()&#123;</span><br><span class="line">        <span class="keyword">let</span> flag = !<span class="keyword">this</span>.state.option</span><br><span class="line">        <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">            option: flag</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//调用父组件的函数，就可以把选择的值返回回去</span></span><br><span class="line">    choose(index)&#123;</span><br><span class="line">        <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">            index: index,</span><br><span class="line">            option: <span class="literal">false</span></span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="keyword">this</span>.props.changeOption(index);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render()&#123;</span><br><span class="line">        <span class="keyword">let</span> style = <span class="string">`background: <span class="subst">$&#123;<span class="keyword">this</span>.state.background&#125;</span>; width: <span class="subst">$&#123;<span class="keyword">this</span>.state.width&#125;</span>rpx;height: <span class="subst">$&#123;<span class="keyword">this</span>.state.height&#125;</span>rpx;color: <span class="subst">$&#123;<span class="keyword">this</span>.state.color&#125;</span>`</span></span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;View style=<span class="string">"font-size: 11px;line-height: 20px;position: absolute;z-index: 100;margin-left: 10%;"</span>&gt;</span><br><span class="line">                &lt;View style=&#123;style&#125; onClick=&#123;<span class="keyword">this</span>.showOptions&#125;&gt;</span><br><span class="line">                    &lt;Text style=<span class="string">"margin-left: 20%;"</span>&gt;&#123;<span class="keyword">this</span>.state.element[<span class="keyword">this</span>.state.index]&#125;&lt;<span class="regexp">/Text&gt;</span></span><br><span class="line"><span class="regexp">                    &lt;Text style="float: right;writing-mode: vertical-rl;margin-top: 8%;transform: scaleX(1.4);"&gt;&gt;&lt;/</span>Text&gt;</span><br><span class="line">                &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">                &lt;View&gt;</span></span><br><span class="line"><span class="regexp">                    &#123;this.state.option&amp;&amp;</span></span><br><span class="line"><span class="regexp">                    this.state.element.map((item, index)=&gt;&#123;</span></span><br><span class="line"><span class="regexp">                        style = `background: $&#123;this.state.background === 'transparent' ? 'white' : this.state.background&#125;; width: $&#123;this.state.width&#125;rpx;height: $&#123;this.state.height&#125;rpx;color: $&#123;this.state.color&#125;`</span></span><br><span class="line"><span class="regexp">                        return &lt;View style=&#123;style&#125; className='option' onClick=&#123;this.choose.bind(this, index)&#125;&gt;</span></span><br><span class="line"><span class="regexp">                            &#123;item&#125;</span></span><br><span class="line"><span class="regexp">                        &lt;/</span>View&gt;</span><br><span class="line">                    &#125;)&#125;</span><br><span class="line">                &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">                </span></span><br><span class="line"><span class="regexp">            &lt;/</span>View&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>css文件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.option&#123;</span><br><span class="line">    text-align:center;</span><br><span class="line">    border-top: 1rpx solid #F5F5F5;</span><br><span class="line">    line-height: <span class="number">70</span>rpx;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//点击选项后，父组件会执行这个函数</span></span><br><span class="line">changeSemester(semester)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(semester)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> element = [<span class="string">'第1学期'</span>,<span class="string">'第2学期'</span>,<span class="string">'第3学期'</span>,<span class="string">'第4学期'</span>,<span class="string">'第5学期'</span>,<span class="string">'第6学期'</span>]</span><br><span class="line"><span class="keyword">let</span> width = <span class="number">230</span></span><br><span class="line"><span class="keyword">let</span> height = <span class="number">70</span></span><br><span class="line"><span class="keyword">let</span> color = <span class="string">'black'</span></span><br><span class="line"><span class="keyword">let</span> background = <span class="string">'transparent'</span></span><br><span class="line"><span class="comment">//调用的时候，最重要的就是把函数传过去，不然就不能接收到</span></span><br><span class="line">&lt;Select element=&#123;element&#125; width=&#123;width&#125; height=&#123;height&#125; color=&#123;color&#125; background=&#123;background&#125; changeOption=&#123;<span class="keyword">this</span>.changeSemester.bind(<span class="keyword">this</span>)&#125;&gt;&lt;/Select&gt;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xinyang1328.github.io/2019/07/18/java第一天/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1325,7 +1474,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1391,7 +1540,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
