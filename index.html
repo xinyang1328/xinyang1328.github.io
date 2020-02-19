@@ -249,6 +249,553 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xinyang1328.github.io/2020/02/19/express/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yangxin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/yangxin.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yangxinのblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/02/19/express/" itemprop="url">express 路由</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-19T23:06:23+08:00">
+                2020-02-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="定义路由"><a href="#定义路由" class="headerlink" title="定义路由"></a>定义路由</h3><p>app.get()、app.post()…处理请求；app.all()处理所有HTTP的方法，app.use()将中间件指定为回调函数</p>
+<p>这些路由方法指导当应用程序收到对指定路由和请求时调用的回调函数；即当检测到指定路由和方法匹配的请求，会调用指定的回调函数</p>
+<p>一个路由可以有多个回调函数，当有多个回调函数的时候，用next函数作为回调函数的参数</p>
+<p>在函数体内调用next()函数，才能运行下一个回调函数，不然就会卡死在那儿。</p>
+<h4 id="路由路径"><a href="#路由路径" class="headerlink" title="路由路径"></a>路由路径</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//表示的是路由路径为 abcd或者acd ，当路径为这两个时，那么会执行这个回调函数</span></span><br><span class="line">app.get(<span class="string">'/ab?cb'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//表示路由路径为 abcd、abbcd、abbbcd.....</span></span><br><span class="line">app.get(<span class="string">'/ab+cd'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//表示路由路径为abcd、abfcd、ab23cd...</span></span><br><span class="line">app.get(<span class="string">'/ab*cd'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//表示路由路径为 abe、abcde</span></span><br><span class="line">app.get(<span class="string">'/ab(cd)?e'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//表示路由路径为有a的所有</span></span><br><span class="line">app.get(<span class="string">'/a/'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//表示路由路径为bbbaaa、caa...</span></span><br><span class="line">app.get(<span class="string">'/.*aaa$/'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="路径参数"><a href="#路径参数" class="headerlink" title="路径参数"></a>路径参数</h4><p>路径参数是命名的url段，用于捕获url中的位置指定的值。捕获的值可以在req.params中获取，路径参数名称在路径中指定为其各自的键</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">app.get(<span class="string">'/users/:userId/app/:appId'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>)</span>&#123;</span><br><span class="line">	res.send(req.params)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>如果url为： <a href="http://127.0.0.1:8080/user/12/app/34，那么就可以进入这个路由的回调函数里面。而req.params" target="_blank" rel="noopener">http://127.0.0.1:8080/user/12/app/34，那么就可以进入这个路由的回调函数里面。而req.params</a> = {‘userId’: ‘12’, ‘appId’: ‘34}</p>
+<h4 id="response-方法"><a href="#response-方法" class="headerlink" title="response 方法"></a>response 方法</h4><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>res.send()</td>
+<td>发送回复</td>
+<td></td>
+</tr>
+<tr>
+<td>res.end()</td>
+<td>响应结束</td>
+<td></td>
+</tr>
+<tr>
+<td>res.download()</td>
+<td>提示下载文件</td>
+<td></td>
+</tr>
+<tr>
+<td>res.json()</td>
+<td>发送Json响应</td>
+<td></td>
+</tr>
+<tr>
+<td>res.jsonp()</td>
+<td>发送JSONP响应</td>
+<td></td>
+</tr>
+<tr>
+<td>res.redirect()</td>
+<td>重定向</td>
+<td></td>
+</tr>
+<tr>
+<td>res.render()</td>
+<td>渲染视图模板</td>
+<td></td>
+</tr>
+<tr>
+<td>res.sendFile()</td>
+<td>将文件作为八个字节流发送</td>
+<td></td>
+</tr>
+<tr>
+<td>res.sendStatus()</td>
+<td>设置响应状态代码并将其字符串表示形式作为响应主体发送</td>
+<td></td>
+</tr>
+<tr>
+<td>res.status()</td>
+<td>设置响应状态码</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>‘<br>’</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xinyang1328.github.io/2020/02/19/cookie与session/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yangxin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/yangxin.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yangxinのblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/02/19/cookie与session/" itemprop="url">session和cookie</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-19T23:06:23+08:00">
+                2020-02-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h3><h4 id="释义："><a href="#释义：" class="headerlink" title="释义："></a>释义：</h4><p>Cookie，有时也用其复数形式 Cookies，指某些网站为了辨别用户身份、进行 session 跟踪而储存在用户本地终端上的数据，也可以叫为浏览器缓存</p>
+<h4 id="作用："><a href="#作用：" class="headerlink" title="作用："></a>作用：</h4><p>访问一个网站后，在本地存储一些关于介个网站的信息，下次再访问的时候就阔以减少一些步骤，从而提高速度。</p>
+<p>比如：你有一次登录了一个网站，输入您的姓名和密码后，然后发现第二次，咦~~这个网站咋自己登录了嘞？？？</p>
+<p><img src="https://s2.ax1x.com/2019/07/19/ZvTkNR.gif" alt="ZvTkNR.gif"></p>
+<p>莫要方丈，这就素cookie的作用。</p>
+<h4 id="内容："><a href="#内容：" class="headerlink" title="内容："></a>内容：</h4><p>主要内容包括：名字，值，过期时间，路径及域。</p>
+<p>存储一般按 <code>key - value</code> 的形式存放滴。</p>
+<p>过期时间是可以自己设置的，如果木有设置，那么关了浏览器后就消失了，并且其被存于内存之中；如果设置了过期时间，那么到了过期时间才会被消除，存储地点为硬盘。</p>
+<p>路径和域其实就是把网站的url分开了，比如介个：</p>
+<p><img src="https://s2.ax1x.com/2019/07/19/ZvHif1.png" alt="ZvHif1.png"></p>
+<h4 id="不足："><a href="#不足：" class="headerlink" title="不足："></a>不足：</h4><p>虽然cookie很有用、留批，但素，人无完人，cookie无完cookie，是吧，cookie也是有大大滴不足der。</p>
+<p>它呢，因为是把你的隐私呀，全部放在硬盘里的，所以这就大大加深了被盗取用于一些不可描述地方的可能性。所以嘞，通过病毒盗取浏览器的cookie，直接通过非法手段得来的cookie骗取网站的信任，就会导致个人信息泄露。</p>
+<p><img src="https://s2.ax1x.com/2019/07/19/ZxmdpR.png" alt="ZxmdpR.png"></p>
+<p>所以，cookie有风险，用时需谨慎（但素完全不用也是不太可能滴….</p>
+<h3 id="session"><a href="#session" class="headerlink" title="session"></a>session</h3><h4 id="释义：-1"><a href="#释义：-1" class="headerlink" title="释义："></a>释义：</h4><p>在计算机中，尤其是在网络应用中，称为“会话控制”。Session对象存储特定用户会话所需的属性及配置信息。这样，当用户在应用程序的Web页之间跳转时，存储在Session对象中的变量将不会丢失，而是在整个用户会话中一直存在下去。当用户请求来自应用程序的 Web页时，如果该用户还没有会话，则Web服务器将自动创建一个 Session对象。当会话过期或被放弃后，服务器将终止该会话。Session 对象最常见的一个用法就是存储用户的首选项。例如，如果用户指明不喜欢查看图形，就可以将该信息存储在Session对象中。</p>
+<p>以上，取自百度百科（就素不想一个一个敲了  略略略</p>
+<p>下面的嘞，就素我看他们的博客，然后按自己理解的意思敲的：</p>
+<p>session是在服务器中存放数据的（废话…），结构类似于Object，由键值对组成的。</p>
+<p>当浏览器发送第一次请求的时候，服务器自动生成了一个session_id和一个存放session的类似于一个表一样的东东，就相当于为这个session开辟了一个空间，然后通过响应把这个发到浏览器。</p>
+<p>那么怎么判断这个是哪个session的嘞，就靠那个session_id来判断了。当第二次发请求的时候，就会将第一次服务器响应中的session_id放在请求中一起发到服务器中，服务器从请求中提出session_id，和保存的所有session_id比较，然后再找到为这个session开辟的空间。</p>
+<p><img src="https://s2.ax1x.com/2019/07/19/Zxe9MV.png" alt="Zxe9MV.png"></p>
+<h4 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h4><p>‘Every coin has two sides’,所以嘞，session也有不足危害滴（好像说的有点严重…</p>
+<p>因为session是在认证用户，发起请求滴时候，服务器需要去创建一个记录去存储介个，我是理解为给它开一个内存滴。</p>
+<p><img src="https://s2.ax1x.com/2019/07/20/ZzcCKs.png" alt="ZzcCKs.png"></p>
+<p>所以咧，当你的用户足够多的情况下，你的内存可能就会遭不住，因为开销太大辽。</p>
+<h3 id="附加：http请求方法"><a href="#附加：http请求方法" class="headerlink" title="附加：http请求方法"></a>附加：http请求方法</h3><h4 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h4><p>发送请求取得服务器的资源，在服务器上获取到之后返回给客户端。</p>
+<h4 id="HEAD"><a href="#HEAD" class="headerlink" title="HEAD"></a>HEAD</h4><p>和GET差不多，但是HEAD仅仅是HTTP头信息。比较适合用于判断资源是否存在</p>
+<h4 id="PUT"><a href="#PUT" class="headerlink" title="PUT"></a>PUT</h4><p>把请求里的实体存储在请求URI</p>
+<h4 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h4><p>删除资源</p>
+<h4 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h4><p>提交数据</p>
+<h4 id="OPTIONS"><a href="#OPTIONS" class="headerlink" title="OPTIONS"></a>OPTIONS</h4><p>获取当前URL所支持的方法</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xinyang1328.github.io/2020/02/19/taro-redux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yangxin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/yangxin.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yangxinのblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/02/19/taro-redux/" itemprop="url">Taro使用redux</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-19T18:20:13+08:00">
+                2020-02-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在写项目的时候，发现需要用到redux，所以去看了看redux，redux就相当于是一个全局变量，我看的教程也挺简单的，但是在实际用的时候，就发现还是有一些问题滴</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="总的store"><a href="#总的store" class="headerlink" title="总的store"></a>总的store</h3><p>在src文件夹里新建一个store文件夹，在文件夹里面新建index.js和reducer.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createStore, applyMiddleware, compose &#125; <span class="keyword">from</span> <span class="string">'redux'</span></span><br><span class="line"><span class="keyword">import</span> thunkMiddleware <span class="keyword">from</span> <span class="string">'redux-thunk'</span></span><br><span class="line"><span class="keyword">import</span> rootReducer <span class="keyword">from</span> <span class="string">'./reducers'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> composeEnhancers =</span><br><span class="line">  <span class="keyword">typeof</span> <span class="built_in">window</span> === <span class="string">'object'</span> &amp;&amp;</span><br><span class="line">  <span class="built_in">window</span>.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?</span><br><span class="line">    <span class="built_in">window</span>.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(&#123;</span><br><span class="line">      <span class="comment">// Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...</span></span><br><span class="line">    &#125;) : compose</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> middlewares = [</span><br><span class="line">  thunkMiddleware</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (process.env.NODE_ENV === <span class="string">'development'</span> &amp;&amp; process.env.TARO_ENV !== <span class="string">'quickapp'</span>) &#123;</span><br><span class="line">  middlewares.push(<span class="built_in">require</span>(<span class="string">'redux-logger'</span>).createLogger())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> enhancer = composeEnhancers(</span><br><span class="line">  applyMiddleware(...middlewares),</span><br><span class="line">  <span class="comment">// other store enhancers if any</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">configStore</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> store = createStore(rootReducer, enhancer)</span><br><span class="line">  <span class="keyword">return</span> store</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>reducer.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; combineReducers &#125; <span class="keyword">from</span> <span class="string">'redux'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> combineReducers(&#123;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>在app.jsx引入</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> configStore <span class="keyword">from</span> <span class="string">'./store'</span></span><br><span class="line"><span class="keyword">const</span> store = configStore()</span><br><span class="line"></span><br><span class="line"><span class="comment">//包裹</span></span><br><span class="line">&lt;Provider store=&#123;store&#125;&gt;&lt;/Provider&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="存放值"><a href="#存放值" class="headerlink" title="存放值"></a>存放值</h3><h4 id="1、建立文档"><a href="#1、建立文档" class="headerlink" title="1、建立文档"></a>1、建立文档</h4><p>在所需页面的文件夹及里面store文件夹，在store文件夹里面建立文件：</p>
+<p>index.js：用于进入接口</p>
+<p>reducer.js：对store里的值进行存储</p>
+<p>action.js：存储值</p>
+<p>constant.js：定义存储类型</p>
+<h4 id="2、编写文件"><a href="#2、编写文件" class="headerlink" title="2、编写文件"></a>2、编写文件</h4><p>constant.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> SET_USER_INFO = <span class="string">'SET_USER_INFO'</span></span><br></pre></td></tr></table></figure>
+<p>action.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;SET_USER_INFO&#125; <span class="keyword">from</span> <span class="string">'./constant'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> testAction = <span class="function">(<span class="params">data</span>) =&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        data,</span><br><span class="line">        type: SET_USER_INFO</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>reducer.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;SET_USER_INFO&#125; <span class="keyword">from</span> <span class="string">'./constant'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> initState = &#123;</span><br><span class="line">    aaa: <span class="string">''</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> test = <span class="function">(<span class="params">state = initState, action</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">switch</span>(action.type)&#123;</span><br><span class="line">        <span class="keyword">case</span> SET_USER_INFO: </span><br><span class="line">            <span class="keyword">return</span> &#123;</span><br><span class="line">                ...state,</span><br><span class="line">                aaa: action.aaa</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">default</span>: </span><br><span class="line">            <span class="keyword">return</span> state</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> test</span><br></pre></td></tr></table></figure>
+<p>index.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> reducer <span class="keyword">from</span> <span class="string">'./reducer'</span></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> constant <span class="keyword">from</span> <span class="string">'./constant'</span></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> action <span class="keyword">from</span> <span class="string">'./action'</span></span><br><span class="line"><span class="keyword">export</span> &#123;reducer, constant, action&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="在总的store里面引入"><a href="#在总的store里面引入" class="headerlink" title="在总的store里面引入"></a>在总的store里面引入</h4><p>在总的store的reducer.js里面引入</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; combineReducers &#125; <span class="keyword">from</span> <span class="string">'redux'</span></span><br><span class="line"><span class="keyword">import</span> &#123;test&#125; <span class="keyword">from</span> <span class="string">'../pages/my/store/index'</span>  </span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> combineReducers(&#123;</span><br><span class="line">    test</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="存取"><a href="#存取" class="headerlink" title="存取"></a>存取</h3><h4 id="1、在对应页面引入分store"><a href="#1、在对应页面引入分store" class="headerlink" title="1、在对应页面引入分store"></a>1、在对应页面引入分store</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;action&#125; <span class="keyword">from</span> <span class="string">'./store'</span></span><br></pre></td></tr></table></figure>
+<h4 id="2、将页面和store连接起来"><a href="#2、将页面和store连接起来" class="headerlink" title="2、将页面和store连接起来"></a>2、将页面和store连接起来</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@connect(<span class="function">(<span class="params">&#123; test &#125;</span>) =&gt;</span> (&#123;</span><br><span class="line">    test</span><br><span class="line">  &#125;), (dispatch) =&gt; (&#123;</span><br><span class="line">    <span class="comment">//当调用这个函数时，会执行store文件夹下action里testAction函数</span></span><br><span class="line">    setUserInfo(data) &#123;</span><br><span class="line">      <span class="comment">//dispatch可以将值存储到store里</span></span><br><span class="line">      dispatch(action.testAction(data))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
+<h4 id="3、存取操作"><a href="#3、存取操作" class="headerlink" title="3、存取操作"></a>3、存取操作</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//存值</span></span><br><span class="line">that.props.setUserInfo(&#123;</span><br><span class="line">    aaa: <span class="string">'123123'</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//取值操作</span></span><br><span class="line">cosole.log(<span class="keyword">this</span>.props)</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xinyang1328.github.io/2020/02/01/taro-select/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1273,157 +1820,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xinyang1328.github.io/2018/02/23/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yangxin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/yangxin.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="yangxinのblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/02/23/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-23T17:28:49+08:00">
-                2018-02-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/blog/" itemprop="url" rel="index">
-                    <span itemprop="name">blog</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-<p><img src="http://onc55v8te.bkt.clouddn.com/blog/180314/GCgJGlbD9m.png?imageslim" alt="mark"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1474,7 +1870,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
