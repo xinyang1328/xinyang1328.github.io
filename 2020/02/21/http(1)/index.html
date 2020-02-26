@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="概述web客户端与服务器是如何通信的1、客户端 —-request请求—–》服务器 2、服务器接收到请求—-转发—-》应用处理和解析 3、服务器解析完毕—-返回response(业务需要返回的结果)—》客户端 4、客户端解析response，展示结果 web内容资源来源web内容都是存储在web服务器上的，客户端发出请求，服务器返回数据 web事务如何工作事务：载体为http报文，即由请求报文和响">
+<meta property="og:type" content="article">
+<meta property="og:title" content="http学习（1）">
+<meta property="og:url" content="http://xinyang1328.github.io/2020/02/21/http(1)/index.html">
+<meta property="og:site_name" content="yangxinのblog">
+<meta property="og:description" content="概述web客户端与服务器是如何通信的1、客户端 —-request请求—–》服务器 2、服务器接收到请求—-转发—-》应用处理和解析 3、服务器解析完毕—-返回response(业务需要返回的结果)—》客户端 4、客户端解析response，展示结果 web内容资源来源web内容都是存储在web服务器上的，客户端发出请求，服务器返回数据 web事务如何工作事务：载体为http报文，即由请求报文和响">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://images.gitbook.cn/a323cc20-6434-11e9-9f5d-f766f14b7efe">
+<meta property="og:image" content="https://bkimg.cdn.bcebos.com/pic/55e736d12f2eb9386decc2e6d5628535e5dd6f25?x-bce-process=image/watermark,g_7,image_d2F0ZXIvYmFpa2U3Mg==,xp_5,yp_5">
+<meta property="og:updated_time" content="2020-02-25T16:10:20.719Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="http学习（1）">
+<meta name="twitter:description" content="概述web客户端与服务器是如何通信的1、客户端 —-request请求—–》服务器 2、服务器接收到请求—-转发—-》应用处理和解析 3、服务器解析完毕—-返回response(业务需要返回的结果)—》客户端 4、客户端解析response，展示结果 web内容资源来源web内容都是存储在web服务器上的，客户端发出请求，服务器返回数据 web事务如何工作事务：载体为http报文，即由请求报文和响">
+<meta name="twitter:image" content="https://images.gitbook.cn/a323cc20-6434-11e9-9f5d-f766f14b7efe">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://xinyang1328.github.io/2020/02/21/http(1)/"/>
+
+
+
+
+
+  <title>http学习（1） | yangxinのblog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">yangxinのblog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xinyang1328.github.io/2020/02/21/http(1)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yangxin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/yangxin.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yangxinのblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">http学习（1）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-21T14:50:58+08:00">
+                2020-02-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="web客户端与服务器是如何通信的"><a href="#web客户端与服务器是如何通信的" class="headerlink" title="web客户端与服务器是如何通信的"></a>web客户端与服务器是如何通信的</h2><p>1、客户端 —-request请求—–》服务器</p>
+<p>2、服务器接收到请求—-转发—-》应用处理和解析</p>
+<p>3、服务器解析完毕—-返回response(业务需要返回的结果)—》客户端</p>
+<p>4、客户端解析response，展示结果</p>
+<h2 id="web内容资源来源"><a href="#web内容资源来源" class="headerlink" title="web内容资源来源"></a>web内容资源来源</h2><p>web内容都是存储在web服务器上的，客户端发出请求，服务器返回数据</p>
+<h3 id="web事务如何工作"><a href="#web事务如何工作" class="headerlink" title="web事务如何工作"></a>web事务如何工作</h3><p>事务：载体为http报文，即由请求报文和响应报文组成</p>
+<p>请求报文：包含请求指令，常用请求指令是：get、post</p>
+<p>响应报文：包含响应状态码</p>
+<h2 id="http历史"><a href="#http历史" class="headerlink" title="http历史"></a>http历史</h2><h3 id="http-0-9"><a href="#http-0-9" class="headerlink" title="http/0.9"></a>http/0.9</h3><p>最初的版本，适用于各种数据信息的简洁快速，但是远不能满足日益发展的各种应用的需要。是一个交换信息的无序协议，仅仅限于文字。</p>
+<p>1、只有一个命令get</p>
+<p>2、没有header等描述数据的信息</p>
+<p>3、服务器发送完毕后，就关闭tcp连接</p>
+<h3 id="http-1-0"><a href="#http-1-0" class="headerlink" title="http/1.0"></a>http/1.0</h3><p>成为最重要的面向事务的应用层协议，对每次请求/响应建立并拆除一个连接。简单，易于管理</p>
+<p>1、增加了很多命令</p>
+<p>2、增加响应码和header</p>
+<p>3、多字符集支持、多部分发送、权限、缓存等</p>
+<h3 id="http-1-1"><a href="#http-1-1" class="headerlink" title="http/1.1"></a>http/1.1</h3><p>规定了连接方式及类型</p>
+<p>1、持久连接</p>
+<p>2、pipeline</p>
+<p>3、增加host和其他一下命令</p>
+<h3 id="http-2-0"><a href="#http-2-0" class="headerlink" title="http/2.0"></a>http/2.0</h3><p>1、所有数据以二进制传输</p>
+<p>2、在一个连接中发送多个请求可不按照顺序执行</p>
+<p>3、头信息压缩以及推送等提高效率的功能</p>
+<h2 id="英特网上安装的大量http架构组件中的一部分"><a href="#英特网上安装的大量http架构组件中的一部分" class="headerlink" title="英特网上安装的大量http架构组件中的一部分"></a>英特网上安装的大量http架构组件中的一部分</h2><p>1、代理服务器：位于服务器和客户端直接的http实体</p>
+<p>2、缓存服务器：http仓库，使常用网页的副本<br>可以保存在离客户端更近的地方</p>
+<p>3、网关：连接与其他应用程序的特色web服务器</p>
+<p>4、agent代理：发起自动http请求的半智能web客户端</p>
+<h3 id="请求过程"><a href="#请求过程" class="headerlink" title="请求过程"></a>请求过程</h3><p><img src="https://images.gitbook.cn/a323cc20-6434-11e9-9f5d-f766f14b7efe" alt="请求过程"></p>
+<p>1、客户端发起http请求</p>
+<p>2、向dns请求解析</p>
+<p>3、dns返回解析的ip地址</p>
+<p>4、向协议(http、ftp等)请求资源（应用层</p>
+<p>5、应用层交给tcp协议(将http报文分割成多个报文段，且每个报文段可靠的传给对方)（运输层</p>
+<p>6、交给ip协议(搜索对象地址，边中转边传输二进制数据)（网络层</p>
+<p>7、经过路由器，ip协议(接收到二进制数据)将数据传给tcp协议</p>
+<p>8、tcp协议(重组接收到的报文段)将报文发送给http协议</p>
+<p>9、tcp协议(将请求的内容封装处理)传送给服务器</p>
+<p>10、服务器(进行逻辑处理，并将数据进行回传)将数据传送给客户端</p>
+<h1 id="http报文"><a href="#http报文" class="headerlink" title="http报文"></a>http报文</h1><h2 id="包含内容"><a href="#包含内容" class="headerlink" title="包含内容"></a>包含内容</h2><p><strong>起始行</strong>：保温第一行，在请求报文中说明要做些撒子，在响应报文中说明出现了啥子情况</p>
+<p><strong>首部字段</strong>：起始行后面的就是首部字段（有零行或者多行）。每个首部字段都包含一个名字和一个值，中间用：隔开，有点像键值对。首部以一个空行结束</p>
+<p><strong>主体</strong>：空行之后的，可选滴，包含所有类型的数据。请求主体中包括了要发送给web的数据，响应主体包含的是要返回给客户端的数据。</p>
+<p>起始行和首部都是文本形式且都是结构化的，而主体可以包含各种数据</p>
+<h2 id="http-Code"><a href="#http-Code" class="headerlink" title="http Code"></a>http Code</h2><p>定义服务器对请求的处理结果，各个区间的code有各自的语义，最好能通过code判断结果</p>
+<h4 id="100-199：信息"><a href="#100-199：信息" class="headerlink" title="100~199：信息"></a>100~199：信息</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">消息</th>
+<th style="text-align:right">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">100</td>
+<td style="text-align:right">服务器仅接收到部分请求，但是一旦服务器并没有拒绝该请求，客户端应该继续发送其余的请求。</td>
+</tr>
+<tr>
+<td style="text-align:left">101</td>
+<td style="text-align:right">服务器转换协议：服务器将遵从客户的请求转换到另外一种协议。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="200-299-成功"><a href="#200-299-成功" class="headerlink" title="200~299:成功"></a>200~299:成功</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">消息</th>
+<th style="text-align:right">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">200</td>
+<td style="text-align:right">请求成功（其后是对GET和POST请求的应答文档。）</td>
+</tr>
+<tr>
+<td style="text-align:left">201</td>
+<td style="text-align:right">请求被创建完成，同时新的资源被创建。</td>
+</tr>
+<tr>
+<td style="text-align:left">202</td>
+<td style="text-align:right">供处理的请求已被接受，但是处理未完成。</td>
+</tr>
+<tr>
+<td style="text-align:left">203</td>
+<td style="text-align:right">文档已经正常地返回，但一些应答头可能不正确，因为使用的是文档的拷贝。</td>
+</tr>
+<tr>
+<td style="text-align:left">204</td>
+<td style="text-align:right">没有新文档。浏览器应该继续显示原来的文档。如果用户定期地刷新页面，而Servlet可以确定用户文档足够新，这个状态代码是很有用的。</td>
+</tr>
+<tr>
+<td style="text-align:left">205</td>
+<td style="text-align:right">没有新文档。但浏览器应该重置它所显示的内容。用来强制浏览器清除表单输入内容。</td>
+</tr>
+<tr>
+<td style="text-align:left">206</td>
+<td style="text-align:right">客户发送了一个带有Range头的GET请求，服务器完成了它。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="300-399：重定向"><a href="#300-399：重定向" class="headerlink" title="300~399：重定向"></a>300~399：重定向</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">消息</th>
+<th style="text-align:right">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">300</td>
+<td style="text-align:right">多重选择。链接列表。用户可以选择某链接到达目的地。最多允许五个地址。</td>
+</tr>
+<tr>
+<td style="text-align:left">301</td>
+<td style="text-align:right">所请求的页面已经转移至新的url。</td>
+</tr>
+<tr>
+<td style="text-align:left">302</td>
+<td style="text-align:right">所请求的页面已经临时转移至新的url。</td>
+</tr>
+<tr>
+<td style="text-align:left">303</td>
+<td style="text-align:right">所请求的页面可在别的url下被找到。</td>
+</tr>
+<tr>
+<td style="text-align:left">304</td>
+<td style="text-align:right">未按预期修改文档。客户端有缓冲的文档并发出了一个条件性的请求（一般是提供If-Modified-Since头表示客户只想比指定日期更新的文档）。服务器告诉客户，原来缓冲的文档还可以继续使用。</td>
+</tr>
+<tr>
+<td style="text-align:left">305</td>
+<td style="text-align:right">客户请求的文档应该通过Location头所指明的代理服务器提取。</td>
+</tr>
+<tr>
+<td style="text-align:left">306</td>
+<td style="text-align:right">此代码被用于前一版本。目前已不再使用，但是代码依然被保留。</td>
+</tr>
+<tr>
+<td style="text-align:left">307</td>
+<td style="text-align:right">被请求的页面已经临时移至新的url。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="400-499：客户端错误"><a href="#400-499：客户端错误" class="headerlink" title="400~499：客户端错误"></a>400~499：客户端错误</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">消息</th>
+<th style="text-align:right">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">400</td>
+<td style="text-align:right">服务器未能理解请求。</td>
+</tr>
+<tr>
+<td style="text-align:left">401</td>
+<td style="text-align:right">被请求的页面需要用户名和密码。</td>
+</tr>
+<tr>
+<td style="text-align:left">402</td>
+<td style="text-align:right">此代码尚无法使用。</td>
+</tr>
+<tr>
+<td style="text-align:left">403</td>
+<td style="text-align:right">对被请求页面的访问被禁止。</td>
+</tr>
+<tr>
+<td style="text-align:left">404</td>
+<td style="text-align:right">服务器无法找到被请求的页面。</td>
+</tr>
+<tr>
+<td style="text-align:left">405</td>
+<td style="text-align:right">请求中指定的方法不被允许。</td>
+</tr>
+<tr>
+<td style="text-align:left">406</td>
+<td style="text-align:right">服务器生成的响应无法被客户端所接受。</td>
+</tr>
+<tr>
+<td style="text-align:left">407</td>
+<td style="text-align:right">用户必须首先使用代理服务器进行验证，这样请求才会被处理。</td>
+</tr>
+<tr>
+<td style="text-align:left">408</td>
+<td style="text-align:right">请求超出了服务器的等待时间。</td>
+</tr>
+<tr>
+<td style="text-align:left">409</td>
+<td style="text-align:right">由于冲突，请求无法被完成。</td>
+</tr>
+<tr>
+<td style="text-align:left">410</td>
+<td style="text-align:right">被请求的页面不可用。</td>
+</tr>
+<tr>
+<td style="text-align:left">411</td>
+<td style="text-align:right">“Content-Length” 未被定义。如果无此内容，服务器不会接受请求。</td>
+</tr>
+<tr>
+<td style="text-align:left">412</td>
+<td style="text-align:right">请求中的前提条件被服务器评估为失败。</td>
+</tr>
+<tr>
+<td style="text-align:left">413</td>
+<td style="text-align:right">由于所请求的实体的太大，服务器不会接受请求。</td>
+</tr>
+<tr>
+<td style="text-align:left">414</td>
+<td style="text-align:right">由于url太长，服务器不会接受请求。当post请求被转换为带有很长的查询信息的get请求时，就会发生这种情况。</td>
+</tr>
+<tr>
+<td style="text-align:left">415</td>
+<td style="text-align:right">由于媒介类型不被支持，服务器不会接受请求。</td>
+</tr>
+<tr>
+<td style="text-align:left">416</td>
+<td style="text-align:right">服务器不能满足客户在请求中指定的Range头。</td>
+</tr>
+<tr>
+<td style="text-align:left">417</td>
+<td style="text-align:right">执行失败。</td>
+</tr>
+<tr>
+<td style="text-align:left">418</td>
+<td style="text-align:right">锁定的错误。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="500-599：服务器错误"><a href="#500-599：服务器错误" class="headerlink" title="500~599：服务器错误"></a>500~599：服务器错误</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">消息</th>
+<th style="text-align:right">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">500</td>
+<td style="text-align:right">请求未完成。服务器遇到不可预知的情况。</td>
+</tr>
+<tr>
+<td style="text-align:left">501</td>
+<td style="text-align:right">请求未完成。服务器不支持所请求的功能。</td>
+</tr>
+<tr>
+<td style="text-align:left">502</td>
+<td style="text-align:right">请求未完成。服务器从上游服务器收到一个无效的响应。</td>
+</tr>
+<tr>
+<td style="text-align:left">503</td>
+<td style="text-align:right">请求未完成。服务器临时过载或宕机</td>
+</tr>
+<tr>
+<td style="text-align:left">504</td>
+<td style="text-align:right">网关超时。</td>
+</tr>
+<tr>
+<td style="text-align:left">505</td>
+<td style="text-align:right">服务器不支持请求中指明的HTTP协议版本。</td>
+</tr>
+</tbody>
+</table>
+<h1 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>http只有请求和响应，所以在对服务端进行连接时，会创建一个TCP connectior的，创建之后是一直存在的。</p>
+<h2 id="三次握手-1"><a href="#三次握手-1" class="headerlink" title="三次握手"></a>三次握手</h2><p><img src="https://bkimg.cdn.bcebos.com/pic/55e736d12f2eb9386decc2e6d5628535e5dd6f25?x-bce-process=image/watermark,g_7,image_d2F0ZXIvYmFpa2U3Mg==,xp_5,yp_5" alt="三次握手"></p>
+<p>1、客户端发送请求访问服务端</p>
+<p>2、服务端返回请求，开启端口</p>
+<p>3、客户端得到运行后，对服务端进行确认：防止客户端挂了之后，服务端一直开着等着客户端</p>
+<p>之后就可以开始进行连接了，在</p>
+<h2 id="URL、URI、URN"><a href="#URL、URI、URN" class="headerlink" title="URL、URI、URN"></a>URL、URI、URN</h2><h4 id="UPI：统一资源标识符"><a href="#UPI：统一资源标识符" class="headerlink" title="UPI：统一资源标识符"></a>UPI：统一资源标识符</h4><p>作用：表示互联网的唯一资源，包含UPL和URN</p>
+<h4 id="URL-统一资源定位器"><a href="#URL-统一资源定位器" class="headerlink" title="URL: 统一资源定位器"></a>URL: 统一资源定位器</h4><p>格式：协议://域名:端口/虚拟目录？文件名#锚</p>
+<p>eg：<a href="https://baike.baidu.com：8000/item/aaa/18758462?fromtitle=bbb&amp;fromid=5985445#test" target="_blank" rel="noopener">https://baike.baidu.com：8000/item/aaa/18758462?fromtitle=bbb&amp;fromid=5985445#test</a></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">协议</th>
+<th style="text-align:center">https</th>
+<th style="text-align:left">网页使用的协议，比如http、https、ftp等，定义服务是如何存取数据等</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">域名</td>
+<td style="text-align:center">baike.baidu.com</td>
+<td style="text-align:left">定位服务器在网络中的位置，ip也可以作为域名</td>
+</tr>
+<tr>
+<td style="text-align:left">端口</td>
+<td style="text-align:center">8000</td>
+<td style="text-align:left">默认80，服务器的端口</td>
+</tr>
+<tr>
+<td style="text-align:left">虚拟目录、路由</td>
+<td style="text-align:center">/item/aaa</td>
+<td style="text-align:left">找到对应的文件</td>
+</tr>
+<tr>
+<td style="text-align:left">文件名</td>
+<td style="text-align:center">item/aaa</td>
+<td style="text-align:left">对应的文件名</td>
+</tr>
+<tr>
+<td style="text-align:left">锚</td>
+<td style="text-align:center">test</td>
+<td style="text-align:left">返回文档的某个片段，防止返回内容多余</td>
+</tr>
+<tr>
+<td style="text-align:left">参数</td>
+<td style="text-align:center">fromtitle=bbb&amp;fromid=5985445</td>
+<td style="text-align:left">请求时所携带的参数，服务器端所需要的</td>
+</tr>
+</tbody>
+</table>
+<h4 id="URN：永久统一资源定位符"><a href="#URN：永久统一资源定位符" class="headerlink" title="URN：永久统一资源定位符"></a>URN：永久统一资源定位符</h4><p>在资源移动后可以被找到，比如之前的页面找不到之后，但也可以返回页面迁移到的地方</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/19/express/" rel="next" title="express 路由">
+                <i class="fa fa-chevron-left"></i> express 路由
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/yangxin.jpg"
+                alt="yangxin" />
+            
+              <p class="site-author-name" itemprop="name">yangxin</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/xinyang1328" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:xinyang1328@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#web客户端与服务器是如何通信的"><span class="nav-number">1.1.</span> <span class="nav-text">web客户端与服务器是如何通信的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#web内容资源来源"><span class="nav-number">1.2.</span> <span class="nav-text">web内容资源来源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#web事务如何工作"><span class="nav-number">1.2.1.</span> <span class="nav-text">web事务如何工作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http历史"><span class="nav-number">1.3.</span> <span class="nav-text">http历史</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#http-0-9"><span class="nav-number">1.3.1.</span> <span class="nav-text">http/0.9</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http-1-0"><span class="nav-number">1.3.2.</span> <span class="nav-text">http/1.0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http-1-1"><span class="nav-number">1.3.3.</span> <span class="nav-text">http/1.1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http-2-0"><span class="nav-number">1.3.4.</span> <span class="nav-text">http/2.0</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#英特网上安装的大量http架构组件中的一部分"><span class="nav-number">1.4.</span> <span class="nav-text">英特网上安装的大量http架构组件中的一部分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#请求过程"><span class="nav-number">1.4.1.</span> <span class="nav-text">请求过程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#http报文"><span class="nav-number">2.</span> <span class="nav-text">http报文</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#包含内容"><span class="nav-number">2.1.</span> <span class="nav-text">包含内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http-Code"><span class="nav-number">2.2.</span> <span class="nav-text">http Code</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#100-199：信息"><span class="nav-number">2.2.0.1.</span> <span class="nav-text">100~199：信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#200-299-成功"><span class="nav-number">2.2.0.2.</span> <span class="nav-text">200~299:成功</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#300-399：重定向"><span class="nav-number">2.2.0.3.</span> <span class="nav-text">300~399：重定向</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#400-499：客户端错误"><span class="nav-number">2.2.0.4.</span> <span class="nav-text">400~499：客户端错误</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#500-599：服务器错误"><span class="nav-number">2.2.0.5.</span> <span class="nav-text">500~599：服务器错误</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三次握手"><span class="nav-number">3.</span> <span class="nav-text">三次握手</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">3.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三次握手-1"><span class="nav-number">3.2.</span> <span class="nav-text">三次握手</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#URL、URI、URN"><span class="nav-number">3.3.</span> <span class="nav-text">URL、URI、URN</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#UPI：统一资源标识符"><span class="nav-number">3.3.0.1.</span> <span class="nav-text">UPI：统一资源标识符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#URL-统一资源定位器"><span class="nav-number">3.3.0.2.</span> <span class="nav-text">URL: 统一资源定位器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#URN：永久统一资源定位符"><span class="nav-number">3.3.0.3.</span> <span class="nav-text">URN：永久统一资源定位符</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yangxin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
