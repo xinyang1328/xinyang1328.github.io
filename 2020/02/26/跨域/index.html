@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="跨域前言产生原因：浏览器同源政策：如果两个页面的协议、域名、端口都相同，那么就可以说明这两个页面有同样的源。这两个页面就可以相互访问，反之，则在没有采取措施的情况下，是无法访问的 在前端开发者中，很容易遇到跨域问题，比如在a域获取了一些信息，需要发送给b域，那么，如果没有进行跨域解决方案，那么就会失败 栗子当前网址：12345//网址http://www.aaa.com:8888/example/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="http(2)">
+<meta property="og:url" content="http://xinyang1328.github.io/2020/02/26/跨域/index.html">
+<meta property="og:site_name" content="yangxinのblog">
+<meta property="og:description" content="跨域前言产生原因：浏览器同源政策：如果两个页面的协议、域名、端口都相同，那么就可以说明这两个页面有同样的源。这两个页面就可以相互访问，反之，则在没有采取措施的情况下，是无法访问的 在前端开发者中，很容易遇到跨域问题，比如在a域获取了一些信息，需要发送给b域，那么，如果没有进行跨域解决方案，那么就会失败 栗子当前网址：12345//网址http://www.aaa.com:8888/example/">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-02-28T08:29:55.598Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="http(2)">
+<meta name="twitter:description" content="跨域前言产生原因：浏览器同源政策：如果两个页面的协议、域名、端口都相同，那么就可以说明这两个页面有同样的源。这两个页面就可以相互访问，反之，则在没有采取措施的情况下，是无法访问的 在前端开发者中，很容易遇到跨域问题，比如在a域获取了一些信息，需要发送给b域，那么，如果没有进行跨域解决方案，那么就会失败 栗子当前网址：12345//网址http://www.aaa.com:8888/example/">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://xinyang1328.github.io/2020/02/26/跨域/"/>
+
+
+
+
+
+  <title>http(2) | yangxinのblog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">yangxinのblog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xinyang1328.github.io/2020/02/26/跨域/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yangxin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/yangxin.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yangxinのblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">http(2)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-26T17:44:06+08:00">
+                2020-02-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h4 id="产生原因："><a href="#产生原因：" class="headerlink" title="产生原因："></a>产生原因：</h4><p>浏览器同源政策：如果两个页面的协议、域名、端口都相同，那么就可以说明这两个页面有同样的源。这两个页面就可以相互访问，反之，则在没有采取措施的情况下，是无法访问的</p>
+<p>在前端开发者中，很容易遇到跨域问题，比如在a域获取了一些信息，需要发送给b域，那么，如果没有进行跨域解决方案，那么就会失败</p>
+<h4 id="栗子"><a href="#栗子" class="headerlink" title="栗子"></a>栗子</h4><p>当前网址：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//网址</span><br><span class="line">http://www.aaa.com:8888/example/a.html</span><br><span class="line"></span><br><span class="line">//域名对应ip</span><br><span class="line">1.2.3.4</span><br></pre></td></tr></table></figure></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">网址</th>
+<th style="text-align:center">是否可以访问</th>
+<th style="text-align:right">原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="http://www.aaa.com:8888/example2/b.html" target="_blank" rel="noopener">http://www.aaa.com:8888/example2/b.html</a></td>
+<td style="text-align:center">是</td>
+<td style="text-align:right">相同协议、域名、端口</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://www.aaa.com:8888/c.html" target="_blank" rel="noopener">http://www.aaa.com:8888/c.html</a></td>
+<td style="text-align:center">是</td>
+<td style="text-align:right">相同协议、域名、端口</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://1.2.3.4:8888/d.html" target="_blank" rel="noopener">http://1.2.3.4:8888/d.html</a></td>
+<td style="text-align:center">是</td>
+<td style="text-align:right">相同协议、端口，ip对应域名相同</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://www.aaa.com:8000/example2/b.html" target="_blank" rel="noopener">http://www.aaa.com:8000/example2/b.html</a></td>
+<td style="text-align:center">否</td>
+<td style="text-align:right">相同协议、域名，不同端口</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://www.aaa.com:8888/example2/b.html" target="_blank" rel="noopener">https://www.aaa.com:8888/example2/b.html</a></td>
+<td style="text-align:center">否</td>
+<td style="text-align:right">不同协议、相同域名、端口</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://www.bbb.com:8888/c.html" target="_blank" rel="noopener">http://www.bbb.com:8888/c.html</a></td>
+<td style="text-align:center">否</td>
+<td style="text-align:right">相同协议、端口，不同域名</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://2.3.4.5:8888/example/a.html" target="_blank" rel="noopener">http://2.3.4.5:8888/example/a.html</a></td>
+<td style="text-align:center">否</td>
+<td style="text-align:right">相同协议、端口，不同ip</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://www.bbb.com:8000/example/a.html" target="_blank" rel="noopener">https://www.bbb.com:8000/example/a.html</a></td>
+<td style="text-align:center">否</td>
+<td style="text-align:right">不同协议、端口、域名</td>
+</tr>
+</tbody>
+</table>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><h3 id="jsonp"><a href="#jsonp" class="headerlink" title="jsonp"></a>jsonp</h3><p>方法：利用src不受同源策略的影响，可以访问其他资源(img、script、link标签都可)</p>
+<h4 id="1、原生"><a href="#1、原生" class="headerlink" title="1、原生"></a>1、原生</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//第一种，非动态</span></span><br><span class="line">&lt;script src=<span class="string">'http://test.com'</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">srcipt</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//第二种，动态创建</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> script = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>)</span><br><span class="line">script.src = <span class="string">'http://test.com'</span></span><br><span class="line"><span class="built_in">document</span>.body.appendChild(script)</span><br></pre></td></tr></table></figure>
+<p>如果需要回调函数，那么在连接里面加上 <strong>?callback=functionName</strong> 即可</p>
+<h4 id="2、jquery"><a href="#2、jquery" class="headerlink" title="2、jquery"></a>2、jquery</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">    url: <span class="string">'http:/test.com'</span>,</span><br><span class="line">    type: <span class="string">''</span>,<span class="comment">//请求方式</span></span><br><span class="line">    dataType: <span class="string">'jsonp'</span>,</span><br><span class="line">    jsonpCallback: <span class="string">'functionName'</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="3、vue"><a href="#3、vue" class="headerlink" title="3、vue"></a>3、vue</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.$http.jsonp(<span class="string">'http://test.com'</span>,&#123;</span><br><span class="line">    params: &#123;&#125;,</span><br><span class="line">    jsonp: <span class="string">'functionName'</span></span><br><span class="line">&#125;).then(res-&gt;&#123;</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="jsonp缺点"><a href="#jsonp缺点" class="headerlink" title="jsonp缺点"></a>jsonp缺点</h4><p>1、只能使用get请求</p>
+<p>2、无法判断请求的连接是否有恶意代码</p>
+<p>3、不方便确定请求失败</p>
+<h3 id="document-domain"><a href="#document-domain" class="headerlink" title="document.domain"></a>document.domain</h3><h4 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h4><p>使用条件：两个域名必须属于同一个基础/一级域名，且所有协议、端口必须一致</p>
+<p>一级域名：例如baidu.com就是一级域名</p>
+<p>二级域名：例如<a href="http://www.baidu.com就是二级域名" target="_blank" rel="noopener">www.baidu.com就是二级域名</a></p>
+<p>方法：利用ifream标签以及在页面指定域名就可以进行访问了</p>
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//父窗口：http://www.a.com/</span></span><br><span class="line"><span class="comment">//指定域</span></span><br><span class="line"><span class="built_in">document</span>.domain = <span class="string">'a.com'</span></span><br><span class="line"><span class="comment">//使用ifream标签</span></span><br><span class="line">&lt;ifream src=<span class="string">'http://b.a.com'</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">ifream</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//子窗口：http://b.a.com</span></span><br><span class="line"><span class="built_in">document</span>.domain = <span class="string">'a.com'</span></span><br><span class="line"><span class="comment">//获取父窗口传过来的值</span></span><br><span class="line"><span class="built_in">window</span>.parent.key</span><br></pre></td></tr></table></figure>
+<h4 id="局限"><a href="#局限" class="headerlink" title="局限"></a>局限</h4><p>a.b.com下指到b.com是允许的</p>
+<p>c.b.com下指到b.com是允许的</p>
+<p>a.b.com下指到d.com是不行的</p>
+<h3 id="location-hash"><a href="#location-hash" class="headerlink" title="location.hash"></a>location.hash</h3><p>原理：pageA需要和pageB相互通信，通过中间页pageC(与pageA同域)实现，不同域之间通过location.hash实现</p>
+<p>X域：pageA、pageC</p>
+<p>Y域：pageB</p>
+<p>现在是pageA与pageB通信，然鹅不同域之间只能单向通信，所以：pageA传给pageB，pageB传给pageC，pageC和pageA同域，可以互相通信(利用parent.parent)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//pageA</span></span><br><span class="line">&lt;ifream src=<span class="string">'http://b.com/b.html'</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">ifream</span>&gt;</span></span> </span><br><span class="line"></span><br><span class="line">setTimeOut(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    iframe.src = iframe.src + <span class="string">'#dataName=value'</span></span><br><span class="line">&#125;, timeNumber)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">callbackFunction</span>(<span class="params">res</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(res)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//pageB</span></span><br><span class="line">&lt;ifream src=<span class="string">'http://a.com/c.html'</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">ifream</span>&gt;</span></span> </span><br><span class="line"></span><br><span class="line"><span class="built_in">window</span>.onhashchange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    iframe.src = iframe.src + location.hash</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//pageC</span></span><br><span class="line"><span class="built_in">window</span>.onhashchange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">window</span>.parent.parent.callbackFunction(location.hash.replace);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="window-name"><a href="#window-name" class="headerlink" title="window.name"></a>window.name</h3><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>打开页面或者添加iframe时创建一个window对象，当页面加载新的页面时，window.name是不会变化的，这样就可以通过在页面动态添加一个iframe，然后再加载数据，将所需要传递的数据赋值给window.name。</p>
+<p>但是，不同域下的页面是不能相互直接访问属性滴，所以还需要一个缓冲页面</p>
+<h4 id="栗子-1"><a href="#栗子-1" class="headerlink" title="栗子"></a>栗子</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//pageA:http://a.com/a.html</span></span><br><span class="line"><span class="keyword">let</span> iframe = <span class="built_in">document</span>.createElement(<span class="string">'iframe)</span></span><br><span class="line"><span class="string">iframe.src = '</span>http:<span class="comment">//b.com/b'</span></span><br><span class="line"><span class="keyword">let</span> state = <span class="literal">false</span></span><br><span class="line">iframe.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(state)&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(iframe.contentWindow.name)</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        state = <span class="literal">true</span></span><br><span class="line">        iframe.contentWindow.location = <span class="string">'http://a.com/c'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//pageB:http://b.com/b</span></span><br><span class="line"><span class="built_in">window</span>.name = <span class="string">'b.html'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//pageC：http://a.com/c</span></span><br></pre></td></tr></table></figure>
+<h3 id="poatMessage"><a href="#poatMessage" class="headerlink" title="poatMessage"></a>poatMessage</h3><p>是window的一个接口，可以安全地实现跨域</p>
+<p>发送数据接口：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">otherWindow.postMessage(msg, targetOrigin, [transfer])</span><br></pre></td></tr></table></figure>
+<p>参数：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">otherWindow</span><br></pre></td></tr></table></figure></p>
+<p>其他窗口的一个引用，比如iframe的contentWindow属性，执行window.open返回的窗口对象，或者是命名过或数值索引的window.frames</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msg</span><br></pre></td></tr></table></figure>
+<p>发送的数据</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">targetOrigin</span><br></pre></td></tr></table></figure>
+<p>指定窗口，可以是 * 表示无限制或者一个url来指定窗口</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">transfer</span><br></pre></td></tr></table></figure>
+<p>和msg一起发送的transferable对象，这些对象的所有权将被转移给消息的接收方，发送方不再保有所有权</p>
+<p>接收数据：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'message'</span>, functionName, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">functionName</span>(<span class="params">msg</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(msg.data, msg.origin, msg.source)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接收数据：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msg.data</span><br></pre></td></tr></table></figure></p>
+<p>传递的数据</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msg.origin</span><br></pre></td></tr></table></figure>
+<p>发送数据窗口的origin，由格式为：协议://域名:端口号</p>
+<p>例如：<a href="http://example.com:80" target="_blank" rel="noopener">http://example.com:80</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msg.source</span><br></pre></td></tr></table></figure>
+<p>对发送消息的窗口对象的引用，可以在不同的origin的两个窗口之间建立双向通信</p>
+<h3 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h3><h4 id="前言-1"><a href="#前言-1" class="headerlink" title="前言"></a>前言</h4><p>CORS：跨域资源共享，使用额外的http头来告诉浏览器，让运行在一个origin上的web应用被准许访问来自不同原服务器上指定的资源，当一个资源从与该资源本身所在的服务器不同的域、协议或端口请求一个资源时，资源会发起一个跨域http请求</p>
+<p>需要浏览器和服务器同时支持，才可以实现。当前几乎所有浏览器都支持CORS，IE都不能低于10，CORS的整个过程都是由浏览器自动完成。</p>
+<p>功能概述：CROS标准新增了一组http首部字段，允许服务器声明哪些源站通过浏览器有权限访问哪些资源；对那些可能对服务器数据产生副作用的http请求方法(get以外的请求，或者搭配某些mime类型的post请求)，浏览器必须首先使用options方法发起一个预检请求，从而获知服务端是否允许跨域请求</p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS" target="_blank" rel="noopener">更多请点</a></p>
+<h4 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h4><h5 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h5><p>原生ajax：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> xhr = <span class="keyword">new</span> XMLHttpRequest()</span><br><span class="line">xhr.withCredentials = <span class="literal">true</span>;<span class="comment">//设置是否携带cookie</span></span><br><span class="line">xhr.open(url, name)</span><br><span class="line">xhr.setRequestHeader(<span class="string">'Content-Type'</span>, <span class="string">'application/x-www-form-urlencoded'</span>)</span><br></pre></td></tr></table></figure>
+<p>jQuery ajax:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">    xhrFields: &#123;</span><br><span class="line">        withCredentials: <span class="literal">true</span> <span class="comment">//是否携带cookie</span></span><br><span class="line">    &#125;,</span><br><span class="line">    crossDomain: <span class="literal">true</span><span class="comment">//在请求头中包含跨域的额外信息，但不会包含cookie</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>vue</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//axios</span></span><br><span class="line">axios.defaults.widthCredentials = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//vue-resource</span></span><br><span class="line">Vue.http.options.credentials = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h5 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h5><p>java后台：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 导入包：import javax.servlet.http.HttpServletResponse;</span></span><br><span class="line"><span class="comment"> * 接口参数中定义：HttpServletResponse response</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 允许跨域访问的域名：若有端口需写全（协议+域名+端口），若没有端口末尾不用加'/'</span></span><br><span class="line">response.setHeader(<span class="string">"Access-Control-Allow-Origin"</span>, <span class="string">"http://www.domain1.com"</span>); </span><br><span class="line"></span><br><span class="line"><span class="comment">// 允许前端带认证cookie：启用此项后，上面的域名不能为'*'，必须指定具体的域名，否则浏览器会提示</span></span><br><span class="line">response.setHeader(<span class="string">"Access-Control-Allow-Credentials"</span>, <span class="string">"true"</span>); </span><br><span class="line"></span><br><span class="line"><span class="comment">// 提示OPTIONS预检时，后端需要设置的两个常用自定义头</span></span><br><span class="line">response.setHeader(<span class="string">"Access-Control-Allow-Headers"</span>, <span class="string">"Content-Type,X-Requested-With"</span>);</span><br></pre></td></tr></table></figure>
+<p>node: </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">const</span> app = express()</span><br><span class="line">app.use(<span class="function"><span class="keyword">function</span>(<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">    res.header(<span class="string">"Access-Control-Allow-Origin"</span>, <span class="string">"*"</span>);</span><br><span class="line">    res.header(<span class="string">"Access-Control-Allow-Headers"</span>, <span class="string">"X-Requested-With,Content-Type"</span>);</span><br><span class="line">    res.header(<span class="string">"Access-Control-Allow-Methods"</span>,<span class="string">"PUT,POST,GET,DELETE,OPTIONS"</span>);</span><br><span class="line">    next();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="nginx代理跨域"><a href="#nginx代理跨域" class="headerlink" title="nginx代理跨域"></a>nginx代理跨域</h3><p><a href="https://www.cnblogs.com/mollie-x/p/10463140.html" target="_blank" rel="noopener">下载配置nginx</a></p>
+<p>nginx配置：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">    listen      <span class="number">80</span>;</span><br><span class="line">    server_name localhost;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        root   html;</span><br><span class="line">        index  index.html index.htm;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//新增内容：</span></span><br><span class="line">    location /test&#123;</span><br><span class="line">        <span class="comment">//请求的后端域名或ip</span></span><br><span class="line">        proxy_pass: http:\/\/example.com </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 当用webpack-dev-server等中间件代理接口访问nignx时，此时无浏览器参与，故没有同源限制，下面的跨域配置可不启用</span></span><br><span class="line">    add_header Access-Control-Allow-Origin http:<span class="comment">//www.domain1.com;  #当前端只跨域不带cookie时，可为*</span></span><br><span class="line">    add_header Access-Control-Allow-Credentials <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>那么在请求的时候，把域名改成<strong> /test </strong> 即可</p>
+<p>比如之前要请求的是<a href="http://example.com/a，在配置之后，写成/test/a即可" target="_blank" rel="noopener">http://example.com/a，在配置之后，写成/test/a即可</a></p>
+<h3 id="node中间件代理"><a href="#node中间件代理" class="headerlink" title="node中间件代理"></a>node中间件代理</h3><p>非vue：利用node + express + http-proxy-middleware搭建一个proxy服务器</p>
+<p>前端：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> xhr = <span class="keyword">new</span> XMLHttpRequest()</span><br><span class="line">xhr.widthCredentials = <span class="literal">true</span></span><br><span class="line">xhr.open(<span class="string">'get'</span>, <span class="string">'http://www.example.com/a?data=value'</span>, <span class="literal">true</span>)</span><br><span class="line">xhr.send()</span><br></pre></td></tr></table></figure></p>
+<p>中间件：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">var</span> proxy = <span class="built_in">require</span>(<span class="string">'http-proxy-middleware'</span>);</span><br><span class="line"><span class="keyword">var</span> app = express();</span><br><span class="line"></span><br><span class="line">app.use(<span class="string">'/'</span>, proxy(&#123;</span><br><span class="line">    <span class="comment">// 代理跨域目标接口</span></span><br><span class="line">    target: <span class="string">'http://example2.com:8080'</span>,</span><br><span class="line">    changeOrigin: <span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 修改响应头信息，实现跨域并允许带cookie</span></span><br><span class="line">    onProxyRes: <span class="function"><span class="keyword">function</span>(<span class="params">proxyRes, req, res</span>) </span>&#123;</span><br><span class="line">        res.header(<span class="string">'Access-Control-Allow-Origin'</span>, <span class="string">'http://www.example.com'</span>);</span><br><span class="line">        res.header(<span class="string">'Access-Control-Allow-Credentials'</span>, <span class="string">'true'</span>);</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 修改响应信息中的cookie域名</span></span><br><span class="line">    cookieDomainRewrite: <span class="string">'www.example.com'</span>  <span class="comment">// 可以为false，表示不修改</span></span><br><span class="line">&#125;));</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3000</span>);</span><br></pre></td></tr></table></figure>
+<p>vue:</p>
+<p>webpack.config:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    devServer: &#123;</span><br><span class="line">        historyApiFallback: <span class="literal">true</span>,</span><br><span class="line">        proxy: [&#123;</span><br><span class="line">            context: <span class="string">'/login'</span>,</span><br><span class="line">            target: <span class="string">'http://www.example2.com:8080'</span>,  <span class="comment">// 代理跨域目标接口</span></span><br><span class="line">            changeOrigin: <span class="literal">true</span>,</span><br><span class="line">            secure: <span class="literal">false</span>,  <span class="comment">// 当代理某些https服务报错时用</span></span><br><span class="line">            cookieDomainRewrite: <span class="string">'www.example.com'</span>  <span class="comment">// 可以为false，表示不修改</span></span><br><span class="line">        &#125;],</span><br><span class="line">        noInfo: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="webSocket协议"><a href="#webSocket协议" class="headerlink" title="webSocket协议"></a>webSocket协议</h3><h4 id="前言-2"><a href="#前言-2" class="headerlink" title="前言"></a>前言</h4><p>WebSocket 是一种在客户端与服务器之间保持TCP长连接的网络协议，这样它们就可以随时进行信息交换。</p>
+<p>虽然任何客户端或服务器上的应用都可以使用WebSocket，但原则上还是指浏览器与服务器之间使用。通过WebSocket，服务器可以直接向客户端发送数据，而无须客户端周期性的请求服务器，以动态更新数据内容。</p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSocket" target="_blank" rel="noopener">api</a></p>
+<h4 id="实际操作"><a href="#实际操作" class="headerlink" title="实际操作"></a>实际操作</h4><p>客户端</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> socket = <span class="keyword">new</span> webSocket(<span class="string">'ws://localhost:8080'</span>)</span><br><span class="line">socket.onopen = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'webSocket is open'</span>)</span><br><span class="line">    socket.send(<span class="string">'open'</span>)</span><br><span class="line">&#125;</span><br><span class="line">socket.onmessage = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(e.data)</span><br><span class="line">    setTimeOut(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">        socket.close()</span><br><span class="line">    &#125;, <span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line">socket.onclose = <span class="function"><span class="keyword">function</span>(<span class="params">p</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'close webSocket'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>服务端：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> websocket = <span class="built_in">require</span>(<span class="string">'ws'</span>)</span><br><span class="line"><span class="keyword">const</span> websocketServer = <span class="keyword">new</span> webSocket.Server</span><br><span class="line"><span class="comment">//打开端口号为8080的websocket server</span></span><br><span class="line"><span class="keyword">const</span> wss = websocketServer(&#123;</span><br><span class="line">    port: <span class="number">8080</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">wss.on(<span class="string">'connection'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">ws</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'connection'</span>)</span><br><span class="line">    ws.on(<span class="string">'message'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">msg</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(msg)</span><br><span class="line">    &#125;)</span><br><span class="line">    ws.send(<span class="string">'send'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/21/http(1)/" rel="next" title="http学习（1）">
+                <i class="fa fa-chevron-left"></i> http学习（1）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/yangxin.jpg"
+                alt="yangxin" />
+            
+              <p class="site-author-name" itemprop="name">yangxin</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/xinyang1328" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:xinyang1328@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#跨域"><span class="nav-number">1.</span> <span class="nav-text">跨域</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#产生原因："><span class="nav-number">1.1.0.1.</span> <span class="nav-text">产生原因：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栗子"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">栗子</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方法"><span class="nav-number">1.2.</span> <span class="nav-text">解决方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#jsonp"><span class="nav-number">1.2.1.</span> <span class="nav-text">jsonp</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、原生"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">1、原生</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、jquery"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">2、jquery</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、vue"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">3、vue</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jsonp缺点"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">jsonp缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#document-domain"><span class="nav-number">1.2.2.</span> <span class="nav-text">document.domain</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前提"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">前提</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#局限"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">局限</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#location-hash"><span class="nav-number">1.2.3.</span> <span class="nav-text">location.hash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#window-name"><span class="nav-number">1.2.4.</span> <span class="nav-text">window.name</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原理"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栗子-1"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">栗子</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#poatMessage"><span class="nav-number">1.2.5.</span> <span class="nav-text">poatMessage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CORS"><span class="nav-number">1.2.6.</span> <span class="nav-text">CORS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言-1"><span class="nav-number">1.2.6.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#具体实现"><span class="nav-number">1.2.6.2.</span> <span class="nav-text">具体实现</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#前端"><span class="nav-number">1.2.6.2.1.</span> <span class="nav-text">前端</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#服务端"><span class="nav-number">1.2.6.2.2.</span> <span class="nav-text">服务端</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx代理跨域"><span class="nav-number">1.2.7.</span> <span class="nav-text">nginx代理跨域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#node中间件代理"><span class="nav-number">1.2.8.</span> <span class="nav-text">node中间件代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#webSocket协议"><span class="nav-number">1.2.9.</span> <span class="nav-text">webSocket协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言-2"><span class="nav-number">1.2.9.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实际操作"><span class="nav-number">1.2.9.2.</span> <span class="nav-text">实际操作</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yangxin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
