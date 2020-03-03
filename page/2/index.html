@@ -249,6 +249,167 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xinyang1328.github.io/2019/01/06/vs+opencv/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yangxin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/yangxin.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yangxinのblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/06/vs+opencv/" itemprop="url">win10+VS2017+open CV 3.4.1配置</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-06T20:13:59+08:00">
+                2019-01-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/其他/" itemprop="url" rel="index">
+                    <span itemprop="name">其他</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>1.VS下载：<a href="https://code.visualstudio.com/" target="_blank" rel="noopener">https://code.visualstudio.com/</a><br>2.open CV下载：<a href="https://opencv.org/" target="_blank" rel="noopener">https://opencv.org/</a></p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>1、环境变量<br>打开 电脑–&gt;属性–&gt;高级系统设置–&gt;环境变量–&gt;系统环境变量–&gt;Path<br>将 XXX\opencv\build\x64\vc15\bin 路径添加到Path(XXX表示opencv所存放的位置)   </p>
+<p><img src="https://s2.ax1x.com/2019/01/06/FHAKFs.png" alt="环境变量"></p>
+<p>2、VS中配置opencv<br>新建一个控制台项目，打开属性管理器</p>
+<p><img src="https://s2.ax1x.com/2019/01/06/FHAtw4.png" alt="属性管理器"></p>
+<p>修改 VC++目录下的包含目录和库目录。<br>包含目录加上 XXX\opencv\build\include 、 XXX\opencv\build\include\opencv 和 XXX\opencv\build\include\opencv2</p>
+<p><img src="https://s2.ax1x.com/2019/01/06/FHuD5F.png" alt="VC++包含目录"></p>
+<p>库目录加上 XXX\opencv\build\x\vc\lib  </p>
+<p><img src="https://s2.ax1x.com/2019/01/06/FHu55D.png" alt="库目录"></p>
+<p>在 链接器 下的输入添加 opencv_world341d.lib</p>
+<p><img src="https://s2.ax1x.com/2019/01/06/FHuLrt.jpg" alt="链接器"></p>
+<p>配置好后，点击 应用 ，配置完成。</p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	IplImage * pimg = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	pimg = cvLoadImage(<span class="string">"./img/11.jpg"</span>,<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">if</span> (pimg != <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		cvNamedWindow(<span class="string">"test"</span>, <span class="number">1</span>);</span><br><span class="line">		cvShowImage(<span class="string">"test"</span>, pimg);</span><br><span class="line">		cvWaitKey(<span class="number">0</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	cvDestroyWindow(<span class="string">"test"</span>);</span><br><span class="line">	cvReleaseImage(&amp;pimg);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输入代码，能看到一张图片，表示配置成功。</p>
+<p><img src="https://s2.ax1x.com/2019/01/06/FHuxIS.png" alt="配置成功"></p>
+<h3 id="配置失败的一个小问题"><a href="#配置失败的一个小问题" class="headerlink" title="配置失败的一个小问题"></a>配置失败的一个小问题</h3><p>问题： <strong>无法打开包括文件:“SDKDDKVer.h”: No such file or directory</strong></p>
+<p>解决方法：在 <strong>VC++</strong> 目录下的 <strong>包含目录</strong> 和 <strong>库目录</strong> 里，分别添加 <strong>$(IncludePath)</strong> 和 <strong>$(LibraryPath)</strong></p>
+<h3 id="图片叠加时的一个小问题"><a href="#图片叠加时的一个小问题" class="headerlink" title="图片叠加时的一个小问题"></a>图片叠加时的一个小问题</h3><p>问题： <strong>0xC0000005:写入位置 0x0000020AE9446212时发生访问冲突。</strong></p>
+<p>原因：图片叠加，将小照片放入背景时，小照片的较大，导致叠放失败。</p>
+<p>解决：换用一张较小的照片放入背景或将背景图片的大小设置大一点。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xinyang1328.github.io/2018/05/02/正则表达式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -457,7 +618,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
