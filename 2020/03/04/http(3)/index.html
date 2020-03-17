@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="打开网页的流程图源自知乎  1、url解析2、dns解析3、tcp连接4、http请求5、HTTP响应6、浏览器解析渲染  url解析地址解析：判断是输入的url或者是搜索字符。 HSTS：由于安全问题，会强制客户端使用https访问页面 dsn解析 接收到域名之后，先查看浏览器缓存；没有则查看操作系统中的hosts文件查找是否有对应的域名/ip对应关系，如果有，则向ip地址发送请求；如果没有，查">
+<meta property="og:type" content="article">
+<meta property="og:title" content="http学习（3）">
+<meta property="og:url" content="http://xinyang1328.github.io/2020/03/04/http(3)/index.html">
+<meta property="og:site_name" content="yangxinのblog">
+<meta property="og:description" content="打开网页的流程图源自知乎  1、url解析2、dns解析3、tcp连接4、http请求5、HTTP响应6、浏览器解析渲染  url解析地址解析：判断是输入的url或者是搜索字符。 HSTS：由于安全问题，会强制客户端使用https访问页面 dsn解析 接收到域名之后，先查看浏览器缓存；没有则查看操作系统中的hosts文件查找是否有对应的域名/ip对应关系，如果有，则向ip地址发送请求；如果没有，查">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/14/8QJTYt.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/14/8lwCRA.png">
+<meta property="og:image" content="https://baike.baidu.com/pic/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90/574285/0/4e4a20a4462309f72ac61ab6720e0cf3d6cad6ed?fr=lemma&ct=single#aid=0&pic=4e4a20a4462309f72ac61ab6720e0cf3d6cad6ed">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/15/81emMn.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/03/04/3oIQQe.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/03/04/3oIdSS.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/03/04/3oIvOH.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/03/04/3o79Rf.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/03/04/3oocBd.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/03/04/3oqMSP.png">
+<meta property="og:updated_time" content="2020-03-14T17:43:30.671Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="http学习（3）">
+<meta name="twitter:description" content="打开网页的流程图源自知乎  1、url解析2、dns解析3、tcp连接4、http请求5、HTTP响应6、浏览器解析渲染  url解析地址解析：判断是输入的url或者是搜索字符。 HSTS：由于安全问题，会强制客户端使用https访问页面 dsn解析 接收到域名之后，先查看浏览器缓存；没有则查看操作系统中的hosts文件查找是否有对应的域名/ip对应关系，如果有，则向ip地址发送请求；如果没有，查">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/03/14/8QJTYt.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://xinyang1328.github.io/2020/03/04/http(3)/"/>
+
+
+
+
+
+  <title>http学习（3） | yangxinのblog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">yangxinのblog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xinyang1328.github.io/2020/03/04/http(3)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yangxin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/yangxin.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yangxinのblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">http学习（3）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-04T08:17:27+08:00">
+                2020-03-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="打开网页的流程"><a href="#打开网页的流程" class="headerlink" title="打开网页的流程"></a>打开网页的流程</h2><p><img src="https://s1.ax1x.com/2020/03/14/8QJTYt.png" alt="8QJTYt.png"><br>图源自知乎</p>
+<blockquote>
+<p>1、url解析<br>2、dns解析<br>3、tcp连接<br>4、http请求<br>5、HTTP响应<br>6、浏览器解析渲染</p>
+</blockquote>
+<h3 id="url解析"><a href="#url解析" class="headerlink" title="url解析"></a>url解析</h3><p>地址解析：判断是输入的url或者是搜索字符。</p>
+<p>HSTS：由于安全问题，会强制客户端使用https访问页面</p>
+<h3 id="dsn解析"><a href="#dsn解析" class="headerlink" title="dsn解析"></a>dsn解析</h3><p><img src="https://s1.ax1x.com/2020/03/14/8lwCRA.png" alt="8lwCRA.png"></p>
+<p>接收到域名之后，先查看浏览器缓存；没有则查看操作系统中的hosts文件查找是否有对应的域名/ip对应关系，如果有，则向ip地址发送请求；如果没有，查看路由器缓存；没有则查看在客户端电脑设置的dhs服务器；没有则查看根域名服务器</p>
+<p><img src="https://baike.baidu.com/pic/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90/574285/0/4e4a20a4462309f72ac61ab6720e0cf3d6cad6ed?fr=lemma&amp;ct=single#aid=0&amp;pic=4e4a20a4462309f72ac61ab6720e0cf3d6cad6ed" alt="81CqLF.png"></p>
+<h3 id="tcp请求"><a href="#tcp请求" class="headerlink" title="tcp请求"></a>tcp请求</h3><p>tcp三次握手</p>
+<h3 id="http请求"><a href="#http请求" class="headerlink" title="http请求"></a>http请求</h3><p>发送数据内容</p>
+<h3 id="http响应"><a href="#http响应" class="headerlink" title="http响应"></a>http响应</h3><p>返回消息</p>
+<p>上面的三个都在<a href="https://xinyang1328.github.io/2020/02/21/http(1">http（1）</a>/)中提到过，但是比较粗略，以后可能会详细查看一番</p>
+<h3 id="解析渲染"><a href="#解析渲染" class="headerlink" title="解析渲染"></a>解析渲染</h3><p><img src="https://s1.ax1x.com/2020/03/15/81emMn.png" alt="81emMn.png"></p>
+<h2 id="performance"><a href="#performance" class="headerlink" title="performance"></a>performance</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.performance</span><br></pre></td></tr></table></figure>
+<p>执行之后：</p>
+<p><img src="https://s2.ax1x.com/2020/03/04/3oIQQe.png" alt="3oIQQe.png"></p>
+<h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><h4 id="memory"><a href="#memory" class="headerlink" title="memory"></a>memory</h4><p>作用：显示此刻内存占用的情况 </p>
+<p><img src="https://s2.ax1x.com/2020/03/04/3oIdSS.png" alt="3oIdSS.png"></p>
+<p>jsHeapSizeLimit该属性代表的含义是：内存大小的限制。</p>
+<p>totalJSHeapSize表示 总内存的大小。</p>
+<p>usedJSHeapSize表示可使用的内存的大小。</p>
+<p>如果 usedJSHeapSize 大于 totalJSHeapSize的话，那么就会出现内存泄露的问题，因此是不允许大于该值的。</p>
+<h4 id="navigation"><a href="#navigation" class="headerlink" title="navigation"></a>navigation</h4><p>作用：页面的来源信息</p>
+<p><img src="https://s2.ax1x.com/2020/03/04/3oIvOH.png" alt="3oIvOH.png"></p>
+<p>redirectCount：如果有重定向的话，页面通过几次重定向跳转而来，默认为0；</p>
+<p>type：页面打开的方式。默认为0. 可取值为0、1、2、255.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">值</th>
+<th style="text-align:right">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0（TYPE_NAVIGATE）</td>
+<td style="text-align:right">正常进入该页面(非刷新、非重定向)</td>
+</tr>
+<tr>
+<td style="text-align:left">1（TYPE_RELOAD）</td>
+<td style="text-align:right">通过 window.location.reload 刷新的页面。如果我现在刷新下页面后，再来看该值就变成1了</td>
+</tr>
+<tr>
+<td style="text-align:left">2（TYPE_BACK_FORWARD ）</td>
+<td style="text-align:right">通过浏览器的前进、后退按钮进入的页面。如果我此时先前进下页面，再后退返回到该页面后，查看打印的值，发现变成2了</td>
+</tr>
+<tr>
+<td style="text-align:left">255（TYPE_RESERVED）</td>
+<td style="text-align:right">非以上的方式进入页面的</td>
+</tr>
+</tbody>
+</table>
+<h4 id="onresourcetimingbufferfull"><a href="#onresourcetimingbufferfull" class="headerlink" title="onresourcetimingbufferfull"></a>onresourcetimingbufferfull</h4><p>作用：在一个回调函数。该回调函数会在浏览器的资源时间性能缓冲区满了的时候会执行的。</p>
+<h4 id="timeOrigin"><a href="#timeOrigin" class="headerlink" title="timeOrigin"></a>timeOrigin</h4><p>作用：是一系列时间点的基准点，精确到万分之一毫秒，该值是一个动态的，刷新下，该值是会发生改变的。</p>
+<h4 id="timing"><a href="#timing" class="headerlink" title="timing"></a>timing</h4><p>镇楼图：</p>
+<p><img src="https://s2.ax1x.com/2020/03/04/3o79Rf.png" alt="3o79Rf.png"></p>
+<p><img src="https://s2.ax1x.com/2020/03/04/3oocBd.png" alt="3oocBd.png"></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">属性</th>
+<th style="text-align:right">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">navigationStart</td>
+<td style="text-align:right">在同一个浏览器上下文中，前一个网页（与当前页面不一定同域）unload 的时间戳，如果无前一个网页 unload ，则与 fetchStart 值相等</td>
+</tr>
+<tr>
+<td style="text-align:left">unloadEventStart</td>
+<td style="text-align:right">前一个网页（与当前页面同域）unload 的时间戳，如果无前一个网页 unload 或者前一个网页与当前页面不同域，则值为 0</td>
+</tr>
+<tr>
+<td style="text-align:left">unloadEventEnd</td>
+<td style="text-align:right">和 unloadEventStart 相对应，返回前一个网页 unload 事件绑定的回调函数执行完毕的时间戳</td>
+</tr>
+<tr>
+<td style="text-align:left">redirectStart</td>
+<td style="text-align:right">第一个 HTTP 重定向发生时的时间。有跳转且是同域名内的重定向才算，否则值为 0</td>
+</tr>
+<tr>
+<td style="text-align:left">redirectEnd</td>
+<td style="text-align:right">最后一个 HTTP 重定向完成时的时间。有跳转且是同域名内部的重定向才算，否则值为 0</td>
+</tr>
+<tr>
+<td style="text-align:left">fetchStart</td>
+<td style="text-align:right">浏览器准备好使用 HTTP 请求抓取文档的时间，这发生在检查本地缓存之前</td>
+</tr>
+<tr>
+<td style="text-align:left">domainLookupStart</td>
+<td style="text-align:right">DNS 域名查询开始的时间，如果使用了本地缓存（即无 DNS 查询）或持久连接，则与 fetchStart 值相等</td>
+</tr>
+<tr>
+<td style="text-align:left">domainLookupEnd</td>
+<td style="text-align:right">DNS 域名查询完成的时间，如果使用了本地缓存（即无 DNS 查询）或持久连接，则与 fetchStart 值相等</td>
+</tr>
+<tr>
+<td style="text-align:left">connectStart:HTTP（TCP）</td>
+<td style="text-align:right">开始建立连接的时间，如果是持久连接，则与 fetchStart 值相等</td>
+</tr>
+<tr>
+<td style="text-align:left">connectEnd:HTTP（TCP）</td>
+<td style="text-align:right">完成建立连接的时间（完成握手），如果是持久连接，则与 fetchStart 值相等。</td>
+</tr>
+<tr>
+<td style="text-align:left">secureConnectionStart</td>
+<td style="text-align:right">HTTPS 连接开始的时间，如果不是安全连接，则值为 0</td>
+</tr>
+<tr>
+<td style="text-align:left">requestStart</td>
+<td style="text-align:right">HTTP 请求读取真实文档开始的时间（完成建立连接），包括从本地读取缓存（连接错误重连时，这里显示的也是新建立连接的时间）</td>
+</tr>
+<tr>
+<td style="text-align:left">responseStart</td>
+<td style="text-align:right">HTTP 开始接收响应的时间（获取到第一个字节），包括从本地读取缓存</td>
+</tr>
+<tr>
+<td style="text-align:left">responseEnd</td>
+<td style="text-align:right">HTTP 响应全部接收完成的时间（获取到最后一个字节），包括从本地读取缓存</td>
+</tr>
+<tr>
+<td style="text-align:left">domLoading</td>
+<td style="text-align:right">开始解析渲染 DOM 树的时间，此时 Document.readyState 变为 loading，并将抛出 readystatechange 相关事件</td>
+</tr>
+<tr>
+<td style="text-align:left">domInteractive</td>
+<td style="text-align:right">完成解析 DOM 树的时间，Document.readyState 变为 interactive，并将抛出 readystatechange 相关事件</td>
+</tr>
+<tr>
+<td style="text-align:left">domContentLoadedEventStart</td>
+<td style="text-align:right">DOM 解析完成后，网页内资源加载开始的时间，在 DOMContentLoaded 事件抛出前发生</td>
+</tr>
+<tr>
+<td style="text-align:left">domContentLoadedEventEnd</td>
+<td style="text-align:right">DOM 解析完成后，网页内资源加载完成的时间（如 JS 脚本加载执行完毕）</td>
+</tr>
+<tr>
+<td style="text-align:left">domComplete</td>
+<td style="text-align:right">DOM 树解析完成，且资源也准备就绪的时间，Document.readyState 变为 complete，并将抛出 readystatechange 相关事件</td>
+</tr>
+<tr>
+<td style="text-align:left">loadEventStart</td>
+<td style="text-align:right">load 事件发送给文档，也即 load 回调函数开始执行的时间</td>
+</tr>
+<tr>
+<td style="text-align:left">loadEventEnd</td>
+<td style="text-align:right">load 事件的回调函数执行完毕的时间</td>
+</tr>
+</tbody>
+</table>
+<p>注：</p>
+<p>connectEnd：如果在传输层发生了错误且重新建立连接，则这里显示的是新建立的连接完成的时间；这里握手结束，包括安全连接建立完成、SOCKS 授权通过</p>
+<p>connectStart：如果在传输层发生了错误且重新建立连接，则这里显示的是新建立的连接开始的时间</p>
+<p>domInteractive：只是 DOM 树解析完成，这时候并没有开始加载网页内的资源</p>
+<p>loadEventStart：如果没有绑定 load 事件，值为 0</p>
+<h2 id="时间性能"><a href="#时间性能" class="headerlink" title="时间性能"></a>时间性能</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//白屏时间</span></span><br><span class="line"><span class="keyword">this</span>.times.whiteScreenTime = (performanceTiming.requestEnd - performanceTiming.navigationStart)</span><br><span class="line"><span class="comment">//首屏时间</span></span><br><span class="line"><span class="keyword">this</span>.times.firstScreenTime = (performanceTiming.domComplete - performanceTiming.navigation5tart)</span><br><span class="line"><span class="comment">//dns查询时间</span></span><br><span class="line"><span class="keyword">this</span>.times.DNSTime = (performanceTiming.domainLookupEnd - performanceTiming.domainLookupStart)</span><br><span class="line"><span class="comment">//页面加载完全时间</span></span><br><span class="line"><span class="keyword">this</span>.times.pageLoadingCompleted = (performanceTiming.loadEventEnd - performanceTiming.navigationStart)</span><br><span class="line"><span class="comment">//tcp连接时间</span></span><br><span class="line"><span class="keyword">this</span>.times.TCPTime = (performanceTiming.connectEnd - performanceTiming.connectStart)</span><br><span class="line"><span class="comment">//onLoad事件加载时间</span></span><br><span class="line"><span class="keyword">this</span>.times.onLoadTime = (performanceTiming.loadEventEnd - performanceTiming.loadEventStart)</span><br><span class="line"><span class="comment">//读取第一个字节的时间</span></span><br><span class="line"><span class="keyword">this</span>.times.readFirstBitTime = (performanceTiming.responseStart - performanceTiming.navigationStart)</span><br><span class="line"><span class="comment">//解析dom树时间</span></span><br><span class="line"><span class="keyword">this</span>.times.analysisDOMTime =  (performanceTiming.domComplete - performanceTiming.responseEnd)</span><br><span class="line"><span class="comment">//内容加载完全时间</span></span><br><span class="line"><span class="keyword">this</span>.times.contentLeadingCompleted = (performanceTiming.responseEnd - performanceTiming.requestStart)</span><br><span class="line"><span class="comment">//重定向时间</span></span><br><span class="line"><span class="keyword">this</span>.times.redirectTime = (performanceTiming.redirectEnd - performanceTiming.redirectStart)</span><br><span class="line"><span class="comment">//卸载页面时间</span></span><br><span class="line"><span class="keyword">this</span>.times.unloadTime = (performanceTiming.unloadEventEnd - performanceTiming.unloadEventStart)</span><br><span class="line"><span class="comment">//用户可操作时间</span></span><br><span class="line"><span class="keyword">this</span>.times.userOperationalTime = (performanceTiming.loadEventEnd - performanceTiming.navigationStart)</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.ax1x.com/2020/03/04/3oqMSP.png" alt="3oqMSP.png"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/02/捕获异常/" rel="next" title="异常捕获">
+                <i class="fa fa-chevron-left"></i> 异常捕获
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/yangxin.jpg"
+                alt="yangxin" />
+            
+              <p class="site-author-name" itemprop="name">yangxin</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/xinyang1328" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:xinyang1328@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#打开网页的流程"><span class="nav-number">1.</span> <span class="nav-text">打开网页的流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#url解析"><span class="nav-number">1.1.</span> <span class="nav-text">url解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dsn解析"><span class="nav-number">1.2.</span> <span class="nav-text">dsn解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tcp请求"><span class="nav-number">1.3.</span> <span class="nav-text">tcp请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http请求"><span class="nav-number">1.4.</span> <span class="nav-text">http请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http响应"><span class="nav-number">1.5.</span> <span class="nav-text">http响应</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解析渲染"><span class="nav-number">1.6.</span> <span class="nav-text">解析渲染</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#performance"><span class="nav-number">2.</span> <span class="nav-text">performance</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#属性"><span class="nav-number">2.1.</span> <span class="nav-text">属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#memory"><span class="nav-number">2.1.1.</span> <span class="nav-text">memory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#navigation"><span class="nav-number">2.1.2.</span> <span class="nav-text">navigation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#onresourcetimingbufferfull"><span class="nav-number">2.1.3.</span> <span class="nav-text">onresourcetimingbufferfull</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#timeOrigin"><span class="nav-number">2.1.4.</span> <span class="nav-text">timeOrigin</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#timing"><span class="nav-number">2.1.5.</span> <span class="nav-text">timing</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间性能"><span class="nav-number">3.</span> <span class="nav-text">时间性能</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yangxin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
