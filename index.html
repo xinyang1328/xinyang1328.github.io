@@ -249,6 +249,158 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xinyang1328.github.io/2020/04/09/动态生成dropdown/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yangxin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/yangxin.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yangxinのblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/09/动态生成dropdown/" itemprop="url">antd+react动态生成dropdown</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-09T17:54:03+08:00">
+                2020-04-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/报错/" itemprop="url" rel="index">
+                    <span itemprop="name">报错</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近自己开始在写一个项目，需要动态生成下拉菜单，虽然说可以用select代替，但是由于我是作为菜单使用的，所以感觉还是用Dropdown更适合一些。虽然这个很简单，但是还是记录下拉，以免以后又有问题</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="正确解法"><a href="#正确解法" class="headerlink" title="正确解法"></a>正确解法</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">let</span> data = [<span class="string">'my'</span>, <span class="string">'test'</span>, <span class="string">'test1'</span>];</span><br><span class="line"><span class="keyword">let</span> buffer = []</span><br><span class="line">data.forEach(<span class="function"><span class="params">ele</span>=&gt;</span>&#123;</span><br><span class="line">    buffer.push(&lt;Menu.Item key=&#123;ele&#125;&gt;&#123;ele&#125;&lt;/Menu.Item&gt;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">this.setState(&#123;</span><br><span class="line">    groups: (&lt;Menu onClick=&#123;this.handleMenuClick&#125;&gt;</span><br><span class="line">            &#123;buffer&#125;</span><br><span class="line">        &lt;/Menu&gt;)</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Dropdown</span> <span class="attr">overlay</span>=<span class="string">&#123;this.state.groups&#125;</span> <span class="attr">trigger</span>=<span class="string">&#123;[</span>'<span class="attr">click</span>']&#125;&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> &gt;</span>&#123;this.state.onShow&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Dropdown</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>注：这个有个注意点：本来我是想直接把onshow写上去的，但是直接写上去会报错，所以就加了一个a标签</p>
+<p>展示结果：<br><img src="https://s1.ax1x.com/2020/04/09/G5yWjI.png" alt="G5yWjI.png"></p>
+<h3 id="错误解法"><a href="#错误解法" class="headerlink" title="错误解法"></a>错误解法</h3><p>之前我是直接这样写</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.setState(&#123;</span><br><span class="line">    groups: (<span class="xml"><span class="tag">&lt;<span class="name">Menu</span> <span class="attr">onClick</span>=<span class="string">&#123;this.handleMenuClick&#125;</span>&gt;</span></span></span><br><span class="line"><span class="xml">                &#123;data.forEach(ele=&gt;&#123;</span></span><br><span class="line">                    return &lt;Menu.Item key=&#123;ele&#125;&gt;&#123;ele&#125;&lt;/Menu.Item&gt;</span><br><span class="line">                &#125;)&#125;</span><br><span class="line"><span class="xml">            <span class="tag">&lt;/<span class="name">Menu</span>&gt;</span>)</span></span><br><span class="line"><span class="xml">        &#125;)</span></span><br></pre></td></tr></table></figure>
+<p>然后报错：</p>
+<p><img src="https://s1.ax1x.com/2020/04/09/G5yu1s.png" alt="G5yu1s.png"></p>
+<p>现在觉得，我就是个憨憨</p>
+<p>—-end—-</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xinyang1328.github.io/2020/03/04/http(3)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2409,149 +2561,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xinyang1328.github.io/2019/07/06/二十四点/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yangxin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/yangxin.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="yangxinのblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/06/二十四点/" itemprop="url">ccf二十四点</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-06T08:47:01+08:00">
-                2019-07-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/刷题/" itemprop="url" rel="index">
-                    <span itemprop="name">刷题</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="201903-2-二十四点-100分"><a href="#201903-2-二十四点-100分" class="headerlink" title="201903-2 二十四点(100分)"></a>201903-2 二十四点(100分)</h2><h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p><img src="https://s2.ax1x.com/2019/07/06/ZwATje.png" alt="ZwATje.png"></p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>因为只有加减乘除法，就不需要考虑有括号的情况。<br>遍历输入的数据，将需要进行减乘除的数计算之后，存到一个数组里面，即这个数组存放的是只进行加法运算的数据。最后得到这个数组的和后与24进行比较，得到答案。</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">judge</span><span class="params">(<span class="built_in">string</span> str)</span></span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;nums;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;str.length();i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(str[i]&gt;=<span class="string">'0'</span>&amp;&amp;str[i]&lt;=<span class="string">'9'</span>)&#123;</span><br><span class="line">			<span class="keyword">int</span> a = str[i] - <span class="string">'0'</span>;</span><br><span class="line">			nums.push_back(a); <span class="comment">//如果是数字就直接存放到数组</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(str[i] == <span class="string">'/'</span>)&#123;</span><br><span class="line">			<span class="keyword">int</span> a = nums[nums.size() - <span class="number">1</span>] / (str[i+<span class="number">1</span>] - <span class="string">'0'</span>);</span><br><span class="line">			i++;</span><br><span class="line">			nums[nums.size() - <span class="number">1</span>] = a;<span class="comment">//取出数组最后一个数字，进行除法运算后，将运算结果存到数组</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(str[i] == <span class="string">'x'</span>)&#123;</span><br><span class="line">			<span class="keyword">int</span> a = nums[nums.size() - <span class="number">1</span>] * (str[i+<span class="number">1</span>] - <span class="string">'0'</span>);</span><br><span class="line">			i++;</span><br><span class="line">			nums[nums.size() - <span class="number">1</span>] = a;<span class="comment">//取出数组最后一个数字，进行乘法运算后，将运算结果存到数组</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(str[i]==<span class="string">'-'</span>)&#123;</span><br><span class="line">			<span class="keyword">int</span> a = str[i+<span class="number">1</span>] - <span class="string">'0'</span>;</span><br><span class="line">			a=a*<span class="number">-1</span>;</span><br><span class="line">			nums.push_back(a);</span><br><span class="line">			i++;<span class="comment">//如果是减法，就将这个数字取它的负数，然后存到数组；也可以和乘除法类似，进行计算后存到数组</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> res=<span class="number">0</span>;</span><br><span class="line">	<span class="comment">//得到结果</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size();i++)&#123;</span><br><span class="line">		res+=nums[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(res==<span class="number">24</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="keyword">int</span> result[<span class="number">1000</span>]=&#123;<span class="number">-1</span>&#125;;</span><br><span class="line">	<span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">		<span class="built_in">string</span> a;</span><br><span class="line">		<span class="built_in">cin</span>&gt;&gt;a;</span><br><span class="line">		<span class="keyword">if</span>(judge(a))&#123;</span><br><span class="line">			<span class="built_in">cout</span>&lt;&lt;<span class="string">"Yes"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="built_in">cout</span>&lt;&lt;<span class="string">"No"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2606,7 +2615,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2617,7 +2626,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
