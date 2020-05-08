@@ -249,6 +249,152 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xinyang1328.github.io/2020/05/08/洗牌/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yangxin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/yangxin.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yangxinのblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/05/08/洗牌/" itemprop="url">洗牌算法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-08T10:23:45+08:00">
+                2020-05-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/其他/" itemprop="url" rel="index">
+                    <span itemprop="name">其他</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>从数组最末位开始，在之前的数字中随机选择一个数字进行交换；然后从数组倒数第二位开始，从第一位到数组倒数第三位开始随机选择一个数字进行交换。。。。就这样一直进行下去</p>
+<h2 id="具体代码实现"><a href="#具体代码实现" class="headerlink" title="具体代码实现"></a>具体代码实现</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">let</span> arr = []</span><br><span class="line"><span class="comment">//赋值</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++)&#123;</span><br><span class="line">    arr[i] = i</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</span><br><span class="line">  <span class="comment">//随机取在当前数字之前的一个下标</span></span><br><span class="line">  <span class="keyword">let</span> index = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random()*(<span class="number">9</span> - i))</span><br><span class="line">  <span class="built_in">console</span>.log(index)</span><br><span class="line">  <span class="comment">//交换两个数组数据</span></span><br><span class="line">  <span class="keyword">let</span> buffer = arr[index]</span><br><span class="line">  arr[index] = arr[<span class="number">9</span> - i]</span><br><span class="line">  arr[<span class="number">9</span>-i] = buffer</span><br><span class="line">  <span class="built_in">console</span>.log(arr)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果: </p>
+<p><img src="https://s1.ax1x.com/2020/05/08/YnDPw4.png" alt="YnDPw4.png"></p>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><p>取数组中10个不同的值，尽量随机值，不能直接取连续的值。如果根据随机下标取值，那么就每次取值的时候就需要判断之前是否取到了这个值。如果只取10个值，那便可以这样做，那如果需要取100、1000、10000个，那么这样就会很浪费空间时间，所以这个算法的用途就在此，奈斯~</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xinyang1328.github.io/2020/04/09/动态生成dropdown/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2293,274 +2439,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xinyang1328.github.io/2019/07/18/java第一天/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yangxin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/yangxin.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="yangxinのblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/18/java第一天/" itemprop="url">第一天</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-18T23:25:03+08:00">
-                2019-07-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java学习/" itemprop="url" rel="index">
-                    <span itemprop="name">Java学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="java学习第一天"><a href="#java学习第一天" class="headerlink" title="java学习第一天"></a>java学习第一天</h2><h3 id="基本要求"><a href="#基本要求" class="headerlink" title="基本要求:"></a>基本要求:</h3><p>1、大小写敏感 </p>
-<p>2、文件入口类是和文件名一致的，如果不一致就会报错。 </p>
-<p>就像这样 </p>
-<p><img src="https://s2.ax1x.com/2019/07/18/ZOLNrD.png" alt="ZOLNrD.png"><br><img src="https://s2.ax1x.com/2019/07/18/Zj3NWQ.png" alt="Zj3NWQ.png"></p>
-<p>3、主方法入口:</p>
-<p><strong> public static void main(String []args) </strong></p>
-<p>开始执行。 </p>
-<p>4、和c/c++一样，必打分号。 </p>
-<p>5、<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(<span class="string">"first day"</span>);</span><br></pre></td></tr></table></figure></p>
-<p>里面必须打成双引号，否则报错….(也不晓得是为啥子要求那么多… </p>
-<p><img src="https://s2.ax1x.com/2019/07/18/ZXZtQU.png" alt="ZXZtQU.png"></p>
-<p>6、一个文件里面只能有一个public的类！！！ </p>
-<h3 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h3><h4 id="访问控制修饰符"><a href="#访问控制修饰符" class="headerlink" title="访问控制修饰符"></a>访问控制修饰符</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">default</span></span><br></pre></td></tr></table></figure>
-<p>默认的，在同一个文件内除了子类都阔以访问嘞 </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span></span><br></pre></td></tr></table></figure>
-<p>公用的，权利最留批的一个，阔以跨文件访问</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span></span><br></pre></td></tr></table></figure>
-<p>受保护的，在同一个文件都阔以滴，子类也可以访问。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span></span><br></pre></td></tr></table></figure>
-<p>私有滴，只能自身访问，其他的包括子类都是访问不到滴</p>
-<p>所以，被访问范围为：</p>
-<p>public &gt; protected &gt; default &gt; private</p>
-<h4 id="其他修饰符："><a href="#其他修饰符：" class="headerlink" title="其他修饰符："></a>其他修饰符：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span></span><br></pre></td></tr></table></figure>
-<p>声明独立于对象的静态变量或静态方法。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span></span><br></pre></td></tr></table></figure>
-<p>定义一个变量的时候，和js里面的const差不多，都是使变量的值不可改变；<br>定义一个函数的时候，没有类可以继承final类的任何特性</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span></span><br></pre></td></tr></table></figure>
-<p>我个人感觉有点类似c++里面的虚函数，在父类里面定义一个函数，然后再子类里面进行定义这个函数的作用，不同的子类的函数互不影响。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span></span><br></pre></td></tr></table></figure>
-<p>被声明的方法只能被一个线程访问。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">transient</span></span><br></pre></td></tr></table></figure>
-<p>可以让变量反序列化。(至于序列化是个啥…我也有点懵逼，就算是辣个留批的后台人，也无法解决我的疑惑</p>
-<p><img src="https://s2.ax1x.com/2019/07/18/ZjYt7q.png" alt="ZjYt7q.png"></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">volatile</span></span><br></pre></td></tr></table></figure>
-<p>修饰的成员变量在每次被线程访问时，都强制从共享内存中重新读取该成员变量的值。而且，当成员变量发生变化时，会强制线程将变化值回写到共享内存。这样在任何时刻，两个不同的线程总是看到某个成员变量的同一个值。</p>
-<h3 id="类与对象"><a href="#类与对象" class="headerlink" title="类与对象"></a>类与对象</h3><h4 id="记错误用法"><a href="#记错误用法" class="headerlink" title="记错误用法"></a>记错误用法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">first</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">day</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">'first day'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String []args)</span></span>&#123;</span><br><span class="line">        day();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>报错：</p>
-<p><img src="https://s2.ax1x.com/2019/07/18/ZXn0oj.png" alt="ZXn0oj.png"></p>
-<p>原因：main是静态的方法，因为前面有<strong>static</strong>，静态的只能调用静态的方法。</p>
-<h4 id="正确的用法"><a href="#正确的用法" class="headerlink" title="正确的用法"></a>正确的用法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">first</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">day</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"first day"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">lalala</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"啦啦啦"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String []args)</span></span>&#123;</span><br><span class="line">        lalala();</span><br><span class="line">        first aaa = <span class="keyword">new</span> first();<span class="comment">//这个就转化为动态的了，就可以无所畏惧了，随意调用静态和非静态的方法，啦啦啦~~</span></span><br><span class="line">        aaa.day();</span><br><span class="line">        aaa.day()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>运行结果：</p>
-<p><img src="https://s2.ax1x.com/2019/07/18/ZXMofs.png" alt="ZXMofs.png"></p>
-<p>当时我就郁闷了，明明有动态的就够了呀，为嘛还要有一个静态的嘞，多麻烦呀，是吧。</p>
-<p>但素，问了问一个留批的后台人，突然就觉得，静态的也蛮不错的嘛。</p>
-<p><img src="https://s2.ax1x.com/2019/07/18/ZXGEYF.png" alt="ZXGEYF.png"></p>
-<p><img src="https://s2.ax1x.com/2019/07/18/Zj37FO.png" alt="Zj37FO.png"></p>
-<p>原因如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">first</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">lalala</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"啦啦啦"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String []args)</span></span>&#123;</span><br><span class="line">        day.zhangshadiao();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">day</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">zhangshadiao</span><span class="params">()</span></span>&#123;</span><br><span class="line">        first.lalala();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>运行结果：</p>
-<p><img src="https://s2.ax1x.com/2019/07/18/ZXlsMt.png" alt="ZXlsMt.png"></p>
-<p>如果 lalala() 不是一个静态的函数，那么直接first.lalala()是肥报错滴，如果要调用非静态的函数嘞，就要先 new 一下，再调用。虽然只少了一个步骤，但素如果要用到多个类，就要 new 这个类那个类的，是有点累(搽汗…而且还浪费</p>
-<p><img src="https://s2.ax1x.com/2019/07/18/ZXJShD.png" alt="ZXJShD.png"></p>
-<p>所以，静态有静态的好处，动态有动态的不足，任取所需即可辽(说的不是肥话咩…</p>
-<p><img src="https://s2.ax1x.com/2019/07/18/Zj3z0P.jpg" alt="Zj3z0P.jpg"></p>
-<h4 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h4><p>构造函数木有个数限制滴，你可以有很多很多个，唯一的要求就是参数类型和参数个数完全一样，不然就报错。</p>
-<p>比如：</p>
-<p><img src="https://s2.ax1x.com/2019/07/18/ZXY4WF.png" alt="ZXY4WF.png"></p>
-<p>非错误用法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">first</span></span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String []args)</span></span>&#123;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        first()&#123;</span><br><span class="line">            System.out.println(<span class="string">"无参数的构造函数"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        first(String str)&#123;</span><br><span class="line">            System.out.println(<span class="string">"有参数的构造函数1，参数1为："</span>+str);</span><br><span class="line">        &#125;</span><br><span class="line">        first(String str1,String str2)&#123;</span><br><span class="line">            System.out.println(<span class="string">"有两个参数的构造函数，参数1为："</span>+str1+<span class="string">"参数2为："</span>+str2);</span><br><span class="line">        &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><table>
-<thead>
-<tr>
-<th style="text-align:left">数据类型</th>
-<th style="text-align:center">默认值</th>
-<th style="text-align:right">值</th>
-<th>其他</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">int</td>
-<td style="text-align:center">0</td>
-<td style="text-align:right">-2^31~2^31 - 1</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align:left">float</td>
-<td style="text-align:center">0.0f</td>
-<td style="text-align:right">-3.4<em>10(-38)~3.4</em>10(38)</td>
-<td>有效位：7位</td>
-</tr>
-<tr>
-<td style="text-align:left">double</td>
-<td style="text-align:center">0.0d</td>
-<td style="text-align:right">-1.7<em>10(-308)～1.7</em>10(308)</td>
-<td>有效位：15位</td>
-</tr>
-<tr>
-<td style="text-align:left">short</td>
-<td style="text-align:center">0</td>
-<td style="text-align:right">-2^15~2^15</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align:left">byte</td>
-<td style="text-align:center">0</td>
-<td style="text-align:right">-2^7~2^7</td>
-</tr>
-<tr>
-<td style="text-align:left">long</td>
-<td style="text-align:center">0L</td>
-<td style="text-align:right">-2^63~2^63-1</td>
-</tr>
-<tr>
-<td style="text-align:left">boolean</td>
-<td style="text-align:center">false</td>
-<td style="text-align:right">ture/false</td>
-</tr>
-<tr>
-<td style="text-align:left">char</td>
-<td style="text-align:center">‘A’</td>
-<td style="text-align:right">\u0000~\uffff</td>
-</tr>
-</tbody>
-</table>
-<p>自动类型转换：</p>
-<p>低 ————————————&gt; 高</p>
-<p>byte,short,char—&gt; int —&gt; long—&gt; float —&gt; double </p>
-<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>学了如何运行用cmd运行java文件，了解了java的基本要求，看了变量类型、修饰符、对象等，类型和对象都基本上能很快的理解，但是修饰符里面有几个不太清楚的，需要再看看。</p>
-<p>第一天，完毕，啦啦啦·~~~</p>
-<p><img src="https://s2.ax1x.com/2019/07/18/Zj3PMR.png" alt="Zj3PMR.png"></p>
-<h4 id="第二天任务"><a href="#第二天任务" class="headerlink" title="第二天任务"></a>第二天任务</h4><p>1、scanner基础用法</p>
-<p>2、List以及Map的用法，遍历，取值，大数类和高精度类。</p>
-<p>3、大致了解for，switch，自增运算三目运算符</p>
-<p>4、Java常见库的使用方法（jdk1.8）</p>
-<p>以上，来着那个留批的后台人布置的任务，我就想吐槽一下那个第二个….我个人觉得是和c/c++的用法是差不多的（莫要让我打脸就行</p>
-<p><img src="https://s2.ax1x.com/2019/07/18/ZjY7DA.png" alt="ZjY7DA.png"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2615,7 +2493,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
