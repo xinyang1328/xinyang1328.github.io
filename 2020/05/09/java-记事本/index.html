@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="设计需求分析过程（具体分析用户的需求，包括用户对界面的需求、用户对使用过程的需求等）1）采用Java Application方式建立应用程序框架； 2）仿照Windows记事本，实现界面设计； 3）完成菜单（新建、打开、保存）设计及事件设计。 总体设计方案（1）界面设计 首先需要三个菜单按钮用于新建、保存以及打开文件，还有一个滚动文本框，用于输入输出文件内容。 （2）事件设计 需要对三个菜单按钮设">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java实现记事本">
+<meta property="og:url" content="http://xinyang1328.github.io/2020/05/09/java-记事本/index.html">
+<meta property="og:site_name" content="yangxinのblog">
+<meta property="og:description" content="设计需求分析过程（具体分析用户的需求，包括用户对界面的需求、用户对使用过程的需求等）1）采用Java Application方式建立应用程序框架； 2）仿照Windows记事本，实现界面设计； 3）完成菜单（新建、打开、保存）设计及事件设计。 总体设计方案（1）界面设计 首先需要三个菜单按钮用于新建、保存以及打开文件，还有一个滚动文本框，用于输入输出文件内容。 （2）事件设计 需要对三个菜单按钮设">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://s1.ax1x.com/2020/05/09/YlbbvR.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/05/09/YlbXb6.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/05/09/YlqAqP.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/05/09/YlqnPg.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/05/09/YlqGZV.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/05/09/YlqRRH.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/05/09/YlqWzd.png">
+<meta property="og:updated_time" content="2020-05-09T13:14:57.943Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java实现记事本">
+<meta name="twitter:description" content="设计需求分析过程（具体分析用户的需求，包括用户对界面的需求、用户对使用过程的需求等）1）采用Java Application方式建立应用程序框架； 2）仿照Windows记事本，实现界面设计； 3）完成菜单（新建、打开、保存）设计及事件设计。 总体设计方案（1）界面设计 首先需要三个菜单按钮用于新建、保存以及打开文件，还有一个滚动文本框，用于输入输出文件内容。 （2）事件设计 需要对三个菜单按钮设">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/05/09/YlbbvR.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://xinyang1328.github.io/2020/05/09/java-记事本/"/>
+
+
+
+
+
+  <title>java实现记事本 | yangxinのblog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">yangxinのblog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xinyang1328.github.io/2020/05/09/java-记事本/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yangxin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/yangxin.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yangxinのblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">java实现记事本</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-09T21:06:19+08:00">
+                2020-05-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/其他学习小记/" itemprop="url" rel="index">
+                    <span itemprop="name">其他学习小记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h2><h3 id="需求分析过程（具体分析用户的需求，包括用户对界面的需求、用户对使用过程的需求等）"><a href="#需求分析过程（具体分析用户的需求，包括用户对界面的需求、用户对使用过程的需求等）" class="headerlink" title="需求分析过程（具体分析用户的需求，包括用户对界面的需求、用户对使用过程的需求等）"></a>需求分析过程（具体分析用户的需求，包括用户对界面的需求、用户对使用过程的需求等）</h3><p>1）采用Java Application方式建立应用程序框架；</p>
+<p>2）仿照Windows记事本，实现界面设计；</p>
+<p>3）完成菜单（新建、打开、保存）设计及事件设计。</p>
+<h3 id="总体设计方案"><a href="#总体设计方案" class="headerlink" title="总体设计方案"></a>总体设计方案</h3><p>（1）界面设计</p>
+<p>首先需要三个菜单按钮用于新建、保存以及打开文件，还有一个滚动文本框，用于输入输出文件内容。</p>
+<p>（2）事件设计</p>
+<p>需要对三个菜单按钮设置点击事件，用于文件的打开保存以及新建功能。</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>由于是用的jframe框架，所以直接给出重要代码，其余代码可以自己生成</p>
+<p>两个类：</p>
+<p>experiment_4：继承JFrame类，用于展示<br>file： 用于进行文件的相关操作</p>
+<p>experiment_4:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">JMenuBar menuBar = <span class="keyword">new</span> JMenuBar();<span class="comment">//用于存放菜单栏</span></span><br><span class="line">JMenu mnNewMenu_1 = <span class="keyword">new</span> JMenu(<span class="string">"\u65B0\u5EFA\u6587\u4EF6"</span>);<span class="comment">//新建文件</span></span><br><span class="line">JMenu mnNewMenu = <span class="keyword">new</span> JMenu(<span class="string">"\u6253\u5F00\u6587\u4EF6"</span>);<span class="comment">//打开文件</span></span><br><span class="line">JMenu mnNewMenu_2 = <span class="keyword">new</span> JMenu(<span class="string">"\u4FDD\u5B58\u6587\u4EF6"</span>);<span class="comment">//保存文件</span></span><br><span class="line">JScrollPane scrollPane = <span class="keyword">new</span> JScrollPane();<span class="comment">//滚动框</span></span><br><span class="line">text = <span class="keyword">new</span> JTextArea();<span class="comment">//展示文件信息</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//新建文档</span></span><br><span class="line">mnNewMenu_1.addMouseListener(<span class="keyword">new</span> MouseAdapter() &#123;</span><br><span class="line">           <span class="comment">//当鼠标点击时</span></span><br><span class="line">			<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">mouseClicked</span><span class="params">(MouseEvent e)</span> </span>&#123;</span><br><span class="line">               <span class="comment">//新建一个file对象</span></span><br><span class="line">				file file = <span class="keyword">new</span> file(text);</span><br><span class="line">               <span class="comment">//执行file对象中的新建文档函数</span></span><br><span class="line">				file.newFile();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line"><span class="comment">//打开文档</span></span><br><span class="line">mnNewMenu.addMouseListener(<span class="keyword">new</span> MouseAdapter() &#123;</span><br><span class="line">			<span class="comment">//鼠标点击时</span></span><br><span class="line">			<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">mouseClicked</span><span class="params">(MouseEvent e)</span> </span>&#123;</span><br><span class="line">				<span class="comment">//新建一个文件选择框</span></span><br><span class="line">				JFileChooser jfc = <span class="keyword">new</span> JFileChooser();</span><br><span class="line">				<span class="comment">//过滤其他非txt文档</span></span><br><span class="line">				FileNameExtensionFilter f = <span class="keyword">new</span> FileNameExtensionFilter(<span class="string">"请选择txt文件"</span>,<span class="string">"txt"</span>);</span><br><span class="line">				<span class="comment">//设置过滤条件</span></span><br><span class="line">				jfc.setFileFilter(f);</span><br><span class="line">				<span class="comment">//打开文件选择框</span></span><br><span class="line">				<span class="keyword">int</span> buffer = jfc.showOpenDialog(getContentPane());</span><br><span class="line">				<span class="comment">//如果点击打开</span></span><br><span class="line">				<span class="keyword">if</span> (buffer == JFileChooser.APPROVE_OPTION) &#123;</span><br><span class="line">					<span class="comment">//新建一个file对象</span></span><br><span class="line">					file file = <span class="keyword">new</span> file(text);</span><br><span class="line">					<span class="comment">//执行file对象中的读取文件函数</span></span><br><span class="line">					file.readFile(jfc);					</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line"><span class="comment">//保存文档</span></span><br><span class="line">mnNewMenu_2.addMouseListener(<span class="keyword">new</span> MouseAdapter() &#123;</span><br><span class="line">			<span class="comment">//当有鼠标点击事件时</span></span><br><span class="line">			<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">mouseClicked</span><span class="params">(MouseEvent e)</span> </span>&#123;</span><br><span class="line">				<span class="comment">//新建一个文件选择框</span></span><br><span class="line">				JFileChooser jfc = <span class="keyword">new</span> JFileChooser();</span><br><span class="line">				<span class="comment">//打开一个文件选择框</span></span><br><span class="line">				<span class="keyword">int</span> buffer = jfc.showOpenDialog(getContentPane());</span><br><span class="line">				<span class="comment">//如果点击确定之后</span></span><br><span class="line">				<span class="keyword">if</span> (buffer == JFileChooser.APPROVE_OPTION) &#123;</span><br><span class="line">					<span class="comment">//新建一个file对象</span></span><br><span class="line">					file file = <span class="keyword">new</span> file(text);</span><br><span class="line">					<span class="comment">//执行file对象的保存文件函数</span></span><br><span class="line">					file.save(jfc);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br></pre></td></tr></table></figure>
+<p>file: </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 保存文件</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> jfc</span></span><br><span class="line"><span class="comment">	 * jfc：文件选择框</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">readFile</span><span class="params">(JFileChooser jfc)</span> </span>&#123;</span><br><span class="line">		File selectedFile = jfc.getSelectedFile();<span class="comment">// 获得选中的txt对象</span></span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			FileReader fr = <span class="keyword">new</span> FileReader(selectedFile);<span class="comment">//读取选择的文件</span></span><br><span class="line">			<span class="keyword">int</span> c = fr.read();<span class="comment">//一个字节一个字节的读取文件</span></span><br><span class="line">			<span class="keyword">while</span>(c!=-<span class="number">1</span>) &#123;<span class="comment">//当读取文件末尾后，就结束循环</span></span><br><span class="line">				text.append((<span class="keyword">char</span>)c+<span class="string">""</span>);<span class="comment">//在滚动文本框添加读取的内容</span></span><br><span class="line">				c = fr.read();<span class="comment">//读取下一个字节</span></span><br><span class="line">			&#125;</span><br><span class="line">			fr.close();<span class="comment">//关闭文件</span></span><br><span class="line">		&#125; <span class="keyword">catch</span> (FileNotFoundException e1) &#123;<span class="comment">//如果找不到文件</span></span><br><span class="line">			<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">			e1.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (IOException e1) &#123;<span class="comment">//如果错误</span></span><br><span class="line">			<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">			e1.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 新建文件</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">newFile</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">//直接将滚动文本框的内容清除</span></span><br><span class="line">		text.setText(<span class="string">""</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 保存文件</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> jfc</span></span><br><span class="line"><span class="comment">	 * jfc：文件选择框</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(JFileChooser jfc)</span> </span>&#123;</span><br><span class="line">		File f = jfc.getSelectedFile();<span class="comment">//获取存放文件的路径</span></span><br><span class="line">		String name = f + <span class="string">""</span>;<span class="comment">//将文件路径转化为string型</span></span><br><span class="line">		File newFile = <span class="keyword">new</span> File(name);<span class="comment">//新建一个文件</span></span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			FileWriter fw = <span class="keyword">new</span> FileWriter(newFile);<span class="comment">//新建一个可写的文件</span></span><br><span class="line">			String txt = text.getText();<span class="comment">//获取输入的文件</span></span><br><span class="line">			fw.write(txt);<span class="comment">//将输入内容写入文件</span></span><br><span class="line">			fw.close();<span class="comment">//关闭文件</span></span><br><span class="line">		&#125; <span class="keyword">catch</span> (IOException e1) &#123;<span class="comment">//如果发生错误</span></span><br><span class="line">			<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">			e1.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="界面展示"><a href="#界面展示" class="headerlink" title="界面展示"></a>界面展示</h2><p>新建文件：点击新建文件按钮之后，如果当前文本区域还存在内容，那么会直接把内容清空</p>
+<p><img src="https://s1.ax1x.com/2020/05/09/YlbbvR.png" alt="YlbbvR.png"></p>
+<p><img src="https://s1.ax1x.com/2020/05/09/YlbXb6.png" alt="YlbXb6.png"></p>
+<p>打开文件：点击打开文件按钮，弹出文件选择框，只能选中txt文件，选择文件之后，会在文本区域展示选中文件内容</p>
+<p><img src="https://s1.ax1x.com/2020/05/09/YlqAqP.png" alt="YlqAqP.png"></p>
+<p><img src="https://s1.ax1x.com/2020/05/09/YlqnPg.png" alt="YlqnPg.png"></p>
+<p>保存文件：点击保存文件之后，会弹出文件选择框，选择所保存的位置。</p>
+<p><img src="https://s1.ax1x.com/2020/05/09/YlqGZV.png" alt="YlqGZV.png"></p>
+<p><img src="https://s1.ax1x.com/2020/05/09/YlqRRH.png" alt="YlqRRH.png"></p>
+<p><img src="https://s1.ax1x.com/2020/05/09/YlqWzd.png" alt="YlqWzd.png"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/08/洗牌/" rel="next" title="洗牌算法">
+                <i class="fa fa-chevron-left"></i> 洗牌算法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/05/09/java-时钟/" rel="prev" title="java实现记事本">
+                java实现记事本 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/yangxin.jpg"
+                alt="yangxin" />
+            
+              <p class="site-author-name" itemprop="name">yangxin</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/xinyang1328" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:xinyang1328@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#设计"><span class="nav-number">1.</span> <span class="nav-text">设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#需求分析过程（具体分析用户的需求，包括用户对界面的需求、用户对使用过程的需求等）"><span class="nav-number">1.1.</span> <span class="nav-text">需求分析过程（具体分析用户的需求，包括用户对界面的需求、用户对使用过程的需求等）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总体设计方案"><span class="nav-number">1.2.</span> <span class="nav-text">总体设计方案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码实现"><span class="nav-number">2.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#界面展示"><span class="nav-number">3.</span> <span class="nav-text">界面展示</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yangxin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
