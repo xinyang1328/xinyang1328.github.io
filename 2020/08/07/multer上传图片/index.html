@@ -79,19 +79,20 @@
 
 
 
-<meta name="description" content="思路从数组最末位开始，在之前的数字中随机选择一个数字进行交换；然后从数组倒数第二位开始，从第一位到数组倒数第三位开始随机选择一个数字进行交换。。。。就这样一直进行下去 具体代码实现1234567891011121314151617let arr = []//赋值for(let i=0; i&amp;lt;10; i++)&amp;#123;    arr[i] = i&amp;#125;for(let i=0;i&amp;lt;">
+<meta name="description" content="环境nodejs + multer1.4.2 + express4.17.1 具体实现123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657const express = require(&apos;express&apos;);const APP = expre">
 <meta property="og:type" content="article">
-<meta property="og:title" content="洗牌算法">
-<meta property="og:url" content="http://xinyang1328.github.io/2020/05/08/洗牌/index.html">
+<meta property="og:title" content="multer上传图片">
+<meta property="og:url" content="http://xinyang1328.github.io/2020/08/07/multer上传图片/index.html">
 <meta property="og:site_name" content="yangxinのblog">
-<meta property="og:description" content="思路从数组最末位开始，在之前的数字中随机选择一个数字进行交换；然后从数组倒数第二位开始，从第一位到数组倒数第三位开始随机选择一个数字进行交换。。。。就这样一直进行下去 具体代码实现1234567891011121314151617let arr = []//赋值for(let i=0; i&amp;lt;10; i++)&amp;#123;    arr[i] = i&amp;#125;for(let i=0;i&amp;lt;">
+<meta property="og:description" content="环境nodejs + multer1.4.2 + express4.17.1 具体实现123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657const express = require(&apos;express&apos;);const APP = expre">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://s1.ax1x.com/2020/05/08/YnDPw4.png">
-<meta property="og:updated_time" content="2020-05-08T03:02:51.105Z">
+<meta property="og:image" content="https://s1.ax1x.com/2020/08/07/afteGF.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/08/07/aftwqI.png">
+<meta property="og:updated_time" content="2020-08-07T07:41:46.838Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="洗牌算法">
-<meta name="twitter:description" content="思路从数组最末位开始，在之前的数字中随机选择一个数字进行交换；然后从数组倒数第二位开始，从第一位到数组倒数第三位开始随机选择一个数字进行交换。。。。就这样一直进行下去 具体代码实现1234567891011121314151617let arr = []//赋值for(let i=0; i&amp;lt;10; i++)&amp;#123;    arr[i] = i&amp;#125;for(let i=0;i&amp;lt;">
-<meta name="twitter:image" content="https://s1.ax1x.com/2020/05/08/YnDPw4.png">
+<meta name="twitter:title" content="multer上传图片">
+<meta name="twitter:description" content="环境nodejs + multer1.4.2 + express4.17.1 具体实现123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657const express = require(&apos;express&apos;);const APP = expre">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/08/07/afteGF.png">
 
 
 
@@ -121,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://xinyang1328.github.io/2020/05/08/洗牌/"/>
+  <link rel="canonical" href="http://xinyang1328.github.io/2020/08/07/multer上传图片/"/>
 
 
 
 
 
-  <title>洗牌算法 | yangxinのblog</title>
+  <title>multer上传图片 | yangxinのblog</title>
   
 
 
@@ -254,7 +255,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xinyang1328.github.io/2020/05/08/洗牌/">
+    <link itemprop="mainEntityOfPage" href="http://xinyang1328.github.io/2020/08/07/multer上传图片/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yangxin">
@@ -271,7 +272,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">洗牌算法</h1>
+          <h1 class="post-title" itemprop="name headline">multer上传图片</h1>
         
 
         <div class="post-meta">
@@ -283,8 +284,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-08T10:23:45+08:00">
-                2020-05-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-07T15:34:07+08:00">
+                2020-08-07
               </time>
             
 
@@ -343,11 +344,12 @@
       
 
       
-        <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>从数组最末位开始，在之前的数字中随机选择一个数字进行交换；然后从数组倒数第二位开始，从第一位到数组倒数第三位开始随机选择一个数字进行交换。。。。就这样一直进行下去</p>
-<h2 id="具体代码实现"><a href="#具体代码实现" class="headerlink" title="具体代码实现"></a>具体代码实现</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">let</span> arr = []</span><br><span class="line"><span class="comment">//赋值</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++)&#123;</span><br><span class="line">    arr[i] = i</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</span><br><span class="line">  <span class="comment">//随机取在当前数字之前的一个下标</span></span><br><span class="line">  <span class="keyword">let</span> index = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random()*(<span class="number">9</span> - i))</span><br><span class="line">  <span class="built_in">console</span>.log(index)</span><br><span class="line">  <span class="comment">//交换两个数组数据</span></span><br><span class="line">  <span class="keyword">let</span> buffer = arr[index]</span><br><span class="line">  arr[index] = arr[<span class="number">9</span> - i]</span><br><span class="line">  arr[<span class="number">9</span>-i] = buffer</span><br><span class="line">  <span class="built_in">console</span>.log(arr)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>运行结果: </p>
-<p><img src="https://s1.ax1x.com/2020/05/08/YnDPw4.png" alt="YnDPw4.png"></p>
-<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><p>取数组中10个不同的值，尽量随机值，不能直接取连续的值。如果根据随机下标取值，那么就每次取值的时候就需要判断之前是否取到了这个值。如果只取10个值，那便可以这样做，那如果需要取100、1000、10000个，那么这样就会很浪费空间时间，所以这个算法的用途就在此，奈斯~</p>
+        <h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>nodejs + multer1.4.2 + express4.17.1</p>
+<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">const</span> APP = express();</span><br><span class="line"><span class="keyword">const</span> multer = <span class="built_in">require</span>(<span class="string">'multer'</span>)</span><br><span class="line"><span class="keyword">const</span> &#123; <span class="attr">v4</span>: uuidv4 &#125; = <span class="built_in">require</span>(<span class="string">'uuid'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> pathname = __dirname;</span><br><span class="line"><span class="comment">//静态文件访问</span></span><br><span class="line">APP.use(express.static(pathname));</span><br><span class="line"></span><br><span class="line"><span class="comment">//设置图片存储路径</span></span><br><span class="line"><span class="keyword">const</span> storage = multer.diskStorage(&#123;</span><br><span class="line">  destination(req,res,cb)&#123;</span><br><span class="line">    cb(<span class="literal">null</span>,<span class="string">'image/bill/'</span>);<span class="comment">//设置路径</span></span><br><span class="line">  &#125;,</span><br><span class="line">  filename(req,file,cb)&#123;</span><br><span class="line">    <span class="keyword">let</span> name = uuidv4() + <span class="string">'&amp;&amp;'</span> + file.originalname<span class="comment">//设置图片名</span></span><br><span class="line">    cb(<span class="literal">null</span>,name);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//设置上传文件接口</span></span><br><span class="line">APP.post(<span class="string">'/image/bill'</span>, multer(&#123;</span><br><span class="line">  storage</span><br><span class="line">&#125;).single(<span class="string">'file'</span>), <span class="function"><span class="keyword">function</span>(<span class="params">req, res, nexr</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(req.file === <span class="literal">undefined</span>)&#123;</span><br><span class="line">        res.send(&#123;</span><br><span class="line">            code: commonData.CODE.NO_FILE,</span><br><span class="line">            msg: <span class="string">'文件接收失败！'</span></span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="keyword">return</span> </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//判断文件格式</span></span><br><span class="line">    <span class="keyword">let</span> imageType = req.file.mimetype</span><br><span class="line">    imageType = imageType.split(<span class="string">'/'</span>)[<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">if</span>(commonData.IMAGETYPE.indexOf(imageType) &lt; <span class="number">0</span>)&#123;</span><br><span class="line">        res.send(&#123;</span><br><span class="line">            code: commonData.CODE.ERROR_IMAGE_TYPE,</span><br><span class="line">            msg: <span class="string">'图片格式不正确，请重新上传正确格式的图片！'</span></span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//判断图片大小是否合法</span></span><br><span class="line">    <span class="keyword">if</span>(req.file.size &gt; commonData.MAX_IMAGE_SIZE)&#123;</span><br><span class="line">        res.send(&#123;</span><br><span class="line">            code: commonData.CODE.MAX_IMAGE_LIMIT,</span><br><span class="line">            msg: <span class="string">'图片超出内存，请压缩后重新上传！'</span></span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="keyword">return</span> </span><br><span class="line">    &#125;</span><br><span class="line">    res.send(&#123;</span><br><span class="line">        code: commonData.CODE.SUCCESS,</span><br><span class="line">        msg: <span class="string">'文件上传成功√'</span>,</span><br><span class="line">        data: &#123;</span><br><span class="line">            url: <span class="string">'/image/bill/'</span>+ req.file.filename</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p><img src="https://s1.ax1x.com/2020/08/07/afteGF.png" alt="afteGF.png"></p>
+<p>访问不了本地的静态资源，所以得设置静态资源访问</p>
+<p>APP.use(express.static(pathname));</p>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="https://s1.ax1x.com/2020/08/07/aftwqI.png" alt="aftwqI.png"></p>
 
       
     </div>
@@ -372,8 +374,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/04/09/动态生成dropdown/" rel="next" title="antd+react动态生成dropdown">
-                <i class="fa fa-chevron-left"></i> antd+react动态生成dropdown
+              <a href="/2020/05/09/java-时钟/" rel="next" title="java实现记事本">
+                <i class="fa fa-chevron-left"></i> java实现记事本
               </a>
             
           </div>
@@ -381,10 +383,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/05/09/java-记事本/" rel="prev" title="java实现记事本">
-                java实现记事本 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -527,7 +525,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#思路"><span class="nav-number">1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体代码实现"><span class="nav-number">2.</span> <span class="nav-text">具体代码实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用场景"><span class="nav-number">3.</span> <span class="nav-text">应用场景</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体实现"><span class="nav-number">2.</span> <span class="nav-text">具体实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遇到的问题"><span class="nav-number">3.</span> <span class="nav-text">遇到的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结果"><span class="nav-number">4.</span> <span class="nav-text">结果</span></a></li></ol></div>
             
 
           </div>

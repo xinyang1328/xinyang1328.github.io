@@ -249,6 +249,178 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xinyang1328.github.io/2020/02/19/cookie与session/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yangxin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/yangxin.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yangxinのblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/02/19/cookie与session/" itemprop="url">session和cookie</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-19T23:06:23+08:00">
+                2020-02-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h3><h4 id="释义："><a href="#释义：" class="headerlink" title="释义："></a>释义：</h4><p>Cookie，有时也用其复数形式 Cookies，指某些网站为了辨别用户身份、进行 session 跟踪而储存在用户本地终端上的数据，也可以叫为浏览器缓存</p>
+<h4 id="作用："><a href="#作用：" class="headerlink" title="作用："></a>作用：</h4><p>访问一个网站后，在本地存储一些关于介个网站的信息，下次再访问的时候就阔以减少一些步骤，从而提高速度。</p>
+<p>比如：你有一次登录了一个网站，输入您的姓名和密码后，然后发现第二次，咦~~这个网站咋自己登录了嘞？？？</p>
+<p><img src="https://s2.ax1x.com/2019/07/19/ZvTkNR.gif" alt="ZvTkNR.gif"></p>
+<p>莫要方丈，这就素cookie的作用。</p>
+<h4 id="内容："><a href="#内容：" class="headerlink" title="内容："></a>内容：</h4><p>主要内容包括：名字，值，过期时间，路径及域。</p>
+<p>存储一般按 <code>key - value</code> 的形式存放滴。</p>
+<p>过期时间是可以自己设置的，如果木有设置，那么关了浏览器后就消失了，并且其被存于内存之中；如果设置了过期时间，那么到了过期时间才会被消除，存储地点为硬盘。</p>
+<p>路径和域其实就是把网站的url分开了，比如介个：</p>
+<p><img src="https://s2.ax1x.com/2019/07/19/ZvHif1.png" alt="ZvHif1.png"></p>
+<h4 id="不足："><a href="#不足：" class="headerlink" title="不足："></a>不足：</h4><p>虽然cookie很有用、留批，但素，人无完人，cookie无完cookie，是吧，cookie也是有大大滴不足der。</p>
+<p>它呢，因为是把你的隐私呀，全部放在硬盘里的，所以这就大大加深了被盗取用于一些不可描述地方的可能性。所以嘞，通过病毒盗取浏览器的cookie，直接通过非法手段得来的cookie骗取网站的信任，就会导致个人信息泄露。</p>
+<p><img src="https://s2.ax1x.com/2019/07/19/ZxmdpR.png" alt="ZxmdpR.png"></p>
+<p>所以，cookie有风险，用时需谨慎（但素完全不用也是不太可能滴….</p>
+<h3 id="session"><a href="#session" class="headerlink" title="session"></a>session</h3><h4 id="释义：-1"><a href="#释义：-1" class="headerlink" title="释义："></a>释义：</h4><p>在计算机中，尤其是在网络应用中，称为“会话控制”。Session对象存储特定用户会话所需的属性及配置信息。这样，当用户在应用程序的Web页之间跳转时，存储在Session对象中的变量将不会丢失，而是在整个用户会话中一直存在下去。当用户请求来自应用程序的 Web页时，如果该用户还没有会话，则Web服务器将自动创建一个 Session对象。当会话过期或被放弃后，服务器将终止该会话。Session 对象最常见的一个用法就是存储用户的首选项。例如，如果用户指明不喜欢查看图形，就可以将该信息存储在Session对象中。</p>
+<p>以上，取自百度百科（就素不想一个一个敲了  略略略</p>
+<p>下面的嘞，就素我看他们的博客，然后按自己理解的意思敲的：</p>
+<p>session是在服务器中存放数据的（废话…），结构类似于Object，由键值对组成的。</p>
+<p>当浏览器发送第一次请求的时候，服务器自动生成了一个session_id和一个存放session的类似于一个表一样的东东，就相当于为这个session开辟了一个空间，然后通过响应把这个发到浏览器。</p>
+<p>那么怎么判断这个是哪个session的嘞，就靠那个session_id来判断了。当第二次发请求的时候，就会将第一次服务器响应中的session_id放在请求中一起发到服务器中，服务器从请求中提出session_id，和保存的所有session_id比较，然后再找到为这个session开辟的空间。</p>
+<p><img src="https://s2.ax1x.com/2019/07/19/Zxe9MV.png" alt="Zxe9MV.png"></p>
+<h4 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h4><p>‘Every coin has two sides’,所以嘞，session也有不足危害滴（好像说的有点严重…</p>
+<p>因为session是在认证用户，发起请求滴时候，服务器需要去创建一个记录去存储介个，我是理解为给它开一个内存滴。</p>
+<p><img src="https://s2.ax1x.com/2019/07/20/ZzcCKs.png" alt="ZzcCKs.png"></p>
+<p>所以咧，当你的用户足够多的情况下，你的内存可能就会遭不住，因为开销太大辽。</p>
+<h3 id="附加：http请求方法"><a href="#附加：http请求方法" class="headerlink" title="附加：http请求方法"></a>附加：http请求方法</h3><h4 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h4><p>发送请求取得服务器的资源，在服务器上获取到之后返回给客户端。</p>
+<h4 id="HEAD"><a href="#HEAD" class="headerlink" title="HEAD"></a>HEAD</h4><p>和GET差不多，但是HEAD仅仅是HTTP头信息。比较适合用于判断资源是否存在</p>
+<h4 id="PUT"><a href="#PUT" class="headerlink" title="PUT"></a>PUT</h4><p>把请求里的实体存储在请求URI</p>
+<h4 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h4><p>删除资源</p>
+<h4 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h4><p>提交数据</p>
+<h4 id="OPTIONS"><a href="#OPTIONS" class="headerlink" title="OPTIONS"></a>OPTIONS</h4><p>获取当前URL所支持的方法</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xinyang1328.github.io/2020/02/19/taro-redux/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1519,7 +1691,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
